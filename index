@@ -5,4 +5,24 @@
   <header>
     <h1>Videos for References (Risk Consulting & Engineering Aon)</h1>
   </header>
+  
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>Categories</li>
+      <li>Search</li>
+    </ul>
+  </nav>
+  
+  <main>
+    <section>
+      <h2>Most Recent</h2>
+      <video></video>
+      <video></video>
+    </section>
+  </main>
 </body>
+
+<footer>
+  <p>By and For Risk Consulting & Engineering AON</p>
+</footer>
