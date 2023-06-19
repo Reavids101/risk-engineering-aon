@@ -59,6 +59,17 @@
     animation: slide-up 1s ease-out;
 }
 
+.intro-about p {
+    float: center;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    padding: 25px 20px 0px 20px;
+}
+
 .helping-clients:hover {
     animation: slide-up 1s ease-out;
 }
