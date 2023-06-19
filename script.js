@@ -10,7 +10,7 @@ function isInViewport(element) {
 
 function handleScroll() {
 
-    introabout.forEach(section => {
+    sections.forEach(section => {
         if (isInViewport(section) && !section.classList.contains('animate')) {
             section.classList.add('animate');
         }
@@ -20,6 +20,18 @@ function handleScroll() {
         window.removeEventListener('scroll', handleScroll);
     }
 }
+
+function handleHover(event) {
+    const section = event.target;
+    if (!section.classList.contains('animate')) {
+        section.classList.add('animate');
+        section.removeEventListener('mouseenter', handleHover);
+    }
+}
+
+sections.forEach(section => {
+    section.addEventListener('mouseenter', handleHover)
+})
 
 window.addEventListener('scroll', handleScroll);
 
