@@ -97,27 +97,21 @@
     }
 }
 .galler-container {
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    display: grid;
+    justify-content: center;
 }
 
 .gallery-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 20px;
-    text-align: center;
+    width: 50%;
+    padding: 10px;
 }
 
 .gallery-item img {
-    max-width: 100%;
+    width:100%;
     height: auto;
 }
 
-.gallery-item h3{
+.gallery-item h3 {
     margin-top: 10px;
     font-size: 18px;
 }
