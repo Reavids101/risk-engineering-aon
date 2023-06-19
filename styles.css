@@ -55,7 +55,7 @@
     color: black;
 }
 
-.intro-about {
+.intro-about:hover {
     animation: slide-up 1s ease-out;
 }
 
