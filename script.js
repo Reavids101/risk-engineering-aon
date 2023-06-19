@@ -1,4 +1,4 @@
-const introabout = document.querySelectorAll('.intro-about');
+const sections = document.querySelectorAll('.section');
 
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
@@ -10,13 +10,13 @@ function isInViewport(element) {
 
 function handleScroll() {
 
-    introabout.forEach(intro-about => {
-        if (isInViewport(intro-about)) {
-            intro-about.classList.add('animate');
+    introabout.forEach(section => {
+        if (isInViewport(section) && !section.classList.contains('animate')) {
+            section.classList.add('animate');
         }
     });
 
-    if (Array.from(introabouts).every(intro-about => intro-about.classList.contains('animate'))) {
+    if (Array.from(sections).every(section => section.classList.contains('animate'))) {
         window.removeEventListener('scroll', handleScroll);
     }
 }
