@@ -15,6 +15,10 @@ function handleScroll() {
             intro-about.classList.add('animate');
         }
     });
+
+    if (Array.from(introabouts).every(intro-about => intro-about.classList.contains('animate'))) {
+        window.removeEventListener('scroll', handleScroll);
+    }
 }
 
 window.addEventListener('scroll', handleScroll);
