@@ -56,7 +56,7 @@
 }
 
 
-.intro-about p {
+.section p {
     float: center;
     display: block;
     color: black;
@@ -67,19 +67,20 @@
     padding: 25px 20px 0px 20px;
 }
 
-
-
-.helping-clients p {
-    float: center;
-    display: block;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    padding: 25px 20px 0px 20px;
+.section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 #thumbnail-container {
     display: inline-block;
