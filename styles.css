@@ -59,7 +59,15 @@
     animation: slide-up 1s ease-out;
 }
 
-.intro-about p {
+.helping-clients:hover {
+    animation: slide-up 1s ease-out;
+}
+
+.external-link:hover {
+    animation: slide-up 1s ease-out;
+}
+
+.helping-clients p {
     float: center;
     display: block;
     color: black;
