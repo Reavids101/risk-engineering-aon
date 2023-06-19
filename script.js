@@ -1,3 +1,26 @@
+const introabout = document.querySelectorAll('.intro-about');
+
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    );
+}
+
+function handleScroll() {
+
+    introabout.forEach(intro-about => {
+        if (isInViewport(intro-about)) {
+            intro-about.classList.add('animate');
+        }
+    });
+}
+
+window.addEventListener('scroll', handleScroll);
+
+handleScroll();
+
 async function fetchMultipleVideoDetails(videoIds) {
 
     try {

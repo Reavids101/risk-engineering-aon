@@ -55,9 +55,6 @@
     color: black;
 }
 
-.intro-about:hover {
-    animation: slide-up 1s ease-out;
-}
 
 .intro-about p {
     float: center;
@@ -70,13 +67,7 @@
     padding: 25px 20px 0px 20px;
 }
 
-.helping-clients:hover {
-    animation: slide-up 1s ease-out;
-}
 
-.external-link:hover {
-    animation: slide-up 1s ease-out;
-}
 
 .helping-clients p {
     float: center;
