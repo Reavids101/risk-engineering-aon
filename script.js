@@ -11,27 +11,15 @@ function isInViewport(element) {
 function handleScroll() {
 
     sections.forEach(section => {
-        if (isInViewport(section) && !section.classList.contains('animate')) {
-            section.classList.add('animate');
+        if (isInViewport(section) && !section.classList.contains('visible')) {
+            section.classList.add('visible');
         }
     });
 
-    if (Array.from(sections).every(section => section.classList.contains('animate'))) {
+    if (Array.from(sections).every(section => section.classList.contains('visible'))) {
         window.removeEventListener('scroll', handleScroll);
     }
 }
-
-function handleHover(event) {
-    const section = event.target;
-    if (!section.classList.contains('animate')) {
-        section.classList.add('animate');
-        section.removeEventListener('mouseenter', handleHover);
-    }
-}
-
-sections.forEach(section => {
-    section.addEventListener('mouseenter', handleHover)
-})
 
 window.addEventListener('scroll', handleScroll);
 
