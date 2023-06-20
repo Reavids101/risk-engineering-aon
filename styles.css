@@ -171,6 +171,14 @@
     animation: slide-up 2.1s ease-in-out forwards;
 }
 
+.contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 20px 0px 20px;
+}
+
 .contact p {
     float: center;
     display: block;
@@ -182,14 +190,13 @@
     padding: 25px 20px 0px 20px;
 }
 
-.contact .gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
+.contact .box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-
-.contact .gallery img {
+.contact .box .gallery img {
     width: 100%;
-    height: auto;
-    transition: transform 0.3s;
+    padding-bottom: 15px;
+    border-radius: 5px;
 }
