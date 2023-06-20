@@ -156,7 +156,7 @@
     margin-bottom: 10px;
 }
 
-.gallery-item .big {
+.gallery-item.big {
     grid-column: 1 / span 2;
     grid-row: 3;
 }
