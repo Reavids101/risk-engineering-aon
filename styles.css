@@ -95,10 +95,13 @@
     float: left;
     width: 250px;
     height: 250px;
+    border-radius: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .gallery-item:hover {
-    border: 1px solid #777;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .gallery-item img {
