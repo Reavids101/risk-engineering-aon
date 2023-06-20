@@ -111,8 +111,7 @@
 }
 
 .external-link {
-    float: left;
-    display: block;
+    float: center;
 }
 
 #thumbnail-container {
