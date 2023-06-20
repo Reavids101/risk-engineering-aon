@@ -93,7 +93,8 @@
     margin: 5px;
     border: 1px solid #ccc;
     float: left;
-    width: 400px;
+    width: 250px;
+    height: 250px;
 }
 
 .gallery-item:hover {
