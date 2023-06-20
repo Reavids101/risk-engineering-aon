@@ -107,22 +107,3 @@
         opacity: 1;
     }
 }
-
-.gallery-item {
-    margin: 5px;
-    float: cenyter;
-    width: 50%;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: auto;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.1);
-}
-.gallery-item p {
-    padding: 15px;
-    text-align: center;
-}
