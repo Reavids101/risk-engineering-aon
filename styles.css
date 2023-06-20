@@ -140,3 +140,7 @@
         opacity: 1;
     }
 }
+
+.gallery-item {
+    animation: slide-up 1.3s ease-in-out forwards;
+}

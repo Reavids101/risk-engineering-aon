@@ -1,3 +1,6 @@
+const element = document.querySelector('.gallery-item');
+element.classList.add('animate-slide-up');
+
 const sections = document.querySelectorAll('.section');
 
 function isInViewport(element) {
