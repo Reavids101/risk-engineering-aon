@@ -141,6 +141,21 @@
     }
 }
 
-.gallery-item {
+#item1 {
     animation: slide-up 1.3s ease-in-out forwards;
+}
+#item2 {
+    animation: slide-up 1.5s ease-in-out forwards;
+}
+
+#item3 {
+    animation: slide-up 1.7s ease-in-out forwards;
+}
+
+#item4 {
+    animation: slide-up 1.9s ease-in-out forwards;
+}
+
+#item5 {
+    animation: slide-up 2.1s ease-in-out forwards;
 }
