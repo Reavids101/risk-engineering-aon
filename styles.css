@@ -246,7 +246,7 @@
     justify-content: center;
 }
 
-.animated-text {
+p.animated-text {
     font-family: "San Francisco";
     color: white;
     transform: translateY(30px);
@@ -254,7 +254,7 @@
     transition: opacity 0.5s, transform 0.5s;
 }
 
-.animated-text:active {
+p.animated-text:active {
     opacity: 1;
     transform: translateY(0);
 }
