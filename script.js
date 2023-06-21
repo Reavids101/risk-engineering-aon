@@ -19,14 +19,14 @@ function handleScroll() {
 
     var windowHeight = wiondow.innerHeight || document.documentElement.clientHeight;
     var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-    var furtherThreshold = windowHeight * 0.9;
-    var textThreshold = winbdowHeight * 0.8;
+    var furtherThreshold = document.body.offsetHeight - windowHeight;
+    var textThreshold = furtherSection.offsetTop - windowHeight;
 
-    if (scrollPosition + furtherThreshold >= document.body.offsetHeight) {
+    if (scrollPosition >= furtherThreshold) {
         furtherSection.classList.add('show');
     }
 
-    if (scrollPosition + textThreshold >= document.body.offsetHeight) {
+    if (scrollPosition >= textThreshold) {
         animatedText.classList.add('show');
     }
 }
