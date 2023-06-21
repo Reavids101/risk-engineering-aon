@@ -1,4 +1,10 @@
-.navbar {
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+  }
+  
+  .navbar {
     overflow: hidden;
     background-color: #333;
     position: sticky;
@@ -13,7 +19,7 @@
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
 }
 
 .navbar img {
@@ -32,7 +38,7 @@
     padding: 14px 10px;
     text-decoration: none;
     border-radius: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
 }
 
 .navbar h1 {
@@ -42,7 +48,7 @@
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
 }
 
 .navbar a:hover {
@@ -62,7 +68,7 @@
     color: black;
     text-align: center;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
     font-size: 15px;
     padding: 25px 20px 0px 20px;
 }
@@ -73,7 +79,7 @@
     color: black;
     text-align: center;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
     font-size: 15px;
     padding: 25px 20px 0px 20px;
 }
@@ -84,7 +90,7 @@
     color: black;
     text-align: center;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
     font-size: 15px;
     padding: 25px 20px 0px 20px;
 }
@@ -185,7 +191,7 @@
     color: black;
     text-align: center;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "San Francisco";
     font-size: 15px;
     padding: 25px 20px 0px 20px;
 }
