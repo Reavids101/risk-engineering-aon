@@ -28,13 +28,24 @@ window.addEventListener('scroll', handleScroll);
 
 handleScroll();
 
-window.addEventListener('scroll', function() {
-    var animatedText = document.querySelector('.further');
-    var distanceFromTop = animatedText.getBoundingClientRect().top;
-    if (distanceFromTop - window.innerHeight < -100) {
-        animatedText.classList.add('slide-in');
-    }
-});
+var animatedText = document.querySelector('.further');
+
+var options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.3
+};
+
+var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+        }
+    });
+}, options
+);
+observer.observe(animatedText);
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
