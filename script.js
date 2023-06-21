@@ -17,11 +17,16 @@ function handleScroll() {
     var furtherSection = document.querySelector('.further');
     var animatedText = document.querySelector('.animated-text');
 
-    if (isInViewport(furtherSection)) {
+    var windowHeight = wiondow.innerHeight || document.documentElement.clientHeight;
+    var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    var furtherThreshold = windowHeight * 0.9;
+    var textThreshold = winbdowHeight * 0.8;
+
+    if (scrollPosition + furtherThreshold >= document.body.offsetHeight) {
         furtherSection.classList.add('show');
     }
 
-    if (isInViewport(animatedText)) {
+    if (scrollPosition + textThreshold >= document.body.offsetHeight) {
         animatedText.classList.add('show');
     }
 }
