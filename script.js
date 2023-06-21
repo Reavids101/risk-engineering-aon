@@ -1,53 +1,22 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function scrollTrigger(selector, options = {}){
-    let els = document.querySelectorAll(selector)
+function scrollTrigger(selector) {
+    const els = document.querySelectorAll(selector);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    });
     els.forEach((el) => {
-        el.classList.add('active');
+        observer.observe(el);
     });
 }
 
-function addObserver(el, options){
-    if(!('IntersectionObserver' in window)){
-        if(options.cb){
-            options.cb(el)
-        }else{
-            entry.target.classList.add('active')
-        }
-        return
-    }
-    let observer = new IntersectionObserver((entries, observer) => { //this takes a callback function which receives two arguments: the elemts list and the observer instance
-        entries.forEach(entry => {
-            if(entry.isIntersecting){
-                if(options.cb){
-                    options.cb(el)
-                }else{
-                    entry.target.classList.add('active')
-                }
-                observer.unobserve(entry.target)
-            }
-        })
-    }, options)
-    observer.observe(el)
-}
-
-window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    if (scrollPosition >= documentHeight) {
-        scrollTrigger('.animated-text');
-    }
-});
-// Example usages:
-
-scrollTrigger('.animated-text', {
-    rootMargin: '0px',
-    threshold: 1.0,
-    cb: function (el) {
-        el.classList.add('active');
-    }
-})
+scrollTrigger('.animated-text');
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
