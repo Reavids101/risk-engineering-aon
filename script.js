@@ -4,7 +4,7 @@ element.classList.add('animate-slide-up');
 const sections = document.querySelectorAll('.section');
 
 function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
+    var rect = element.getBoundingClientRect();
     return (
         rect.top >= 0 &&
         rect.left >= 0 &&
@@ -39,7 +39,7 @@ function checkVisibility() {
     }
 }
 
-window.addEventListener('scroll', handleScroll);
+window.addEventListener('scroll', handleScroll());
 
 checkVisibility()
 
