@@ -1,22 +1,17 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-let item = document.querySelector('.animated-text');
+function showAnimatedText() {
+    const container = document.querySelector('.animatted-text');
+    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
 
-let options = {
-    rootMargin: '-10%',
-    threshold: 0.0
+    if (scrollY > windowHeight) {
+        container.classList.add('visible');
+    }
 }
 
-let observer = new IntersectionObserver(scollItem, options);
-
-function scrollItem(entry) {
-    entry.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    })
-}
+window.addEventListener('scroll', showAnimatedText);
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
