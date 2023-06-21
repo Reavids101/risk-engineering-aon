@@ -1,18 +1,6 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function showAnimatedText() {
-    const container = document.querySelector('.animatted-text');
-    const windowHeight = window.innerHeight;
-    const scrollY = window.scrollY;
-
-    if (scrollY > windowHeight) {
-        container.classList.add('visible');
-    }
-}
-
-window.addEventListener('scroll', showAnimatedText);
-
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
         var tag = document.createElement('script');
