@@ -241,7 +241,7 @@
     opacity: 0;
     transform: translateY(100%);
     transition: opacity 0.5s ease;
-    color: white;
+    color: black;
 }
 
 .animated-text.show {
