@@ -1,52 +1,22 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-const sections = document.querySelectorAll('.section');
-
-function isInViewport(element) {
-    var rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
 function handleScroll() {
     var furtherSection = document.querySelector('.further');
     var animatedText = document.querySelector('.animated-text');
 
-    var windowHeight = wiondow.innerHeight || document.documentElement.clientHeight;
-    var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-    var furtherThreshold = document.body.offsetHeight - windowHeight;
-    var textThreshold = furtherSection.offsetTop - windowHeight;
+    var furtherThreshold = furtherSection.getBoundingClientRect().top + window.scrollY + (furtherSection.offsetHeight / 2);
+    var textThreshold = animatedText.getBoundingClientRect().top + window.scrollY + (animatedText.offsetHeight / 2);
 
-    if (scrollPosition >= furtherThreshold) {
-        furtherSection.classList.add('show');
+    if (window.scrollY >= furtherThreshold) {
+        furtherSection.style.opacity = '1';
     }
 
-    if (scrollPosition >= textThreshold) {
+    if (window.scrollY >= textThreshold) {
         animatedText.classList.add('show');
     }
 }
-
-function checkVisibility() {
-    var furtherSection = document.querySelector('.further');
-    var animatedText = document.querySelector('.animated-text');
-
-    if (isInViewport(furtherSection)) {
-        furtherSection.classList.add('show');
-    }
-
-    if (isInViewport(animatedText)) {
-        animatedText.classList.add('show');
-    }
-}
-
-window.addEventListener('scroll', handleScroll());
-
-checkVisibility()
+window.addEventListener('scroll', handleScroll)
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
