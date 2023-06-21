@@ -28,6 +28,50 @@ window.addEventListener('scroll', handleScroll);
 
 handleScroll();
 
+window.addEvenrListener('scroll', function() {
+    var animatedText = document.querySelector('further');
+    var scrollPosition = animatedText.getBoundingClientRect().top;
+    var screenHeight = window.innerHeight;
+    if (scrollPosition < screenHeight * 0.75) {
+        animatedText.classList.add('fade-in');
+    }
+
+});
+
+function loadYouTubeAPI() {
+    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api?api_key=AIzaSyB8PZzheb2PUkyrFwBdDA4SoYGRS8p8kLQ";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYoutubeIframeAPIReady() {
+    new YT.Player('youtube-player', {
+        width: '640',
+        height: '390',
+        videoId: 'VIDEO_ID',
+        playerVars: {
+            autoplay: 1,
+            controls: 0,
+            showinfo: 0,
+            modestbranding: 1,
+            loop: 1
+        },
+        events: {
+            onReady: onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.mute();
+    event.target.playVideo();
+}
+
+window.onload = loadYouTubeAPI
+
 async function fetchMultipleVideoDetails(videoIds) {
 
     try {
@@ -43,7 +87,7 @@ async function fetchMultipleVideoDetails(videoIds) {
             if (!response.ok) {
                 throw new Error('Error fetching video details for video ID: ${videoId}');
             }
-            const data = awaiot response.json();
+            const data = await response.json();
             const videoName = data.name;
             const videoThumbnailUrl = data.thumbnailUrl;
 
@@ -52,7 +96,7 @@ async function fetchMultipleVideoDetails(videoIds) {
         return videoDetails;
     } catch (error) {
         console.error('Error:', error);
-        return [;]
+        return [];
     }
 }
 
