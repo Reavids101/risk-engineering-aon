@@ -232,14 +232,13 @@
     padding: 20px;
 }
 
-.further p {
+.further .animated-text {
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    color: white;
+    transform: translateY(100%);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
-.further p.fade-in {
+.further .animated-text.show {
     opacity: 1;
     transform: translateY(0);
 }

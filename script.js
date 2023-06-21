@@ -28,7 +28,7 @@ window.addEventListener('scroll', handleScroll);
 
 handleScroll();
 
-var animatedText = document.querySelector('.further');
+var animatedText = document.querySelector('.animated-text');
 
 var options = {
     root: null,
