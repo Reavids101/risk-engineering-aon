@@ -181,7 +181,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    background-image: "/risk-engineering-aon/New_York_and_Jersey_City_Skyline_Panorama.jpg";
+    background-image: url("/risk-engineering-aon/New_York_and_Jersey_City_Skyline_Panorama.jpg");
 }
 
 .contact {
