@@ -1,26 +1,42 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function handleScroll() {
-    var furtherSection = document.querySelector('.further');
-    var animatedText = document.querySelector('.animated-text');
-
-    var furtherThreshold = furtherSection.getBoundingClientRect().top + window.scrollY + (furtherSection.offsetHeight / 2);
-    var textThreshold = animatedText.getBoundingClientRect().top + window.scrollY + (animatedText.offsetHeight / 2);
-
-    if (window.scrollY >= furtherThreshold) {
-        furtherSection.style.opacity = '1';
-    }
-
-    if (window.scrollY >= textThreshold) {
-        animatedText.classList.add('show');
-    } else {
-        animatedText.classList.remove('show');
-    }
+function scrollTrigger(selector, options = {}){
+    let els = document.querySelectorAll(selector)
+    els = Array.from(els)
+    els.forEach(el => {
+        addObserver(el, options)
+    })
 }
-window.addEventListener('scroll', handleScroll)
 
-window.addEventListener('load', handleScroll)
+function addObserver(el, options){
+    if(!('IntersectionObserver' in window)){
+        if(options.cb){
+            options.cb(el)
+        }else{
+            entry.target.classList.add('active')
+        }
+        return
+    }
+    let observer = new IntersectionObserver((entries, observer) => { //this takes a callback function which receives two arguments: the elemts list and the observer instance
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                if(options.cb){
+                    options.cb(el)
+                }else{
+                    entry.target.classList.add('active')
+                }
+                observer.unobserve(entry.target)
+            }
+        })
+    }, options)
+    observer.observe(el)
+}
+// Example usages:
+
+scrollTrigger('.animated-text', {
+    rootMargin: '-200px',
+})
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
