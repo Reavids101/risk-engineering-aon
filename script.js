@@ -26,7 +26,22 @@ function handleScroll() {
     }
 }
 
+function checkVisibility() {
+    var furtherSection = document.querySelector('.further');
+    var animatedText = document.querySelector('.animated-text');
+
+    if (isInViewport(furtherSection)) {
+        furtherSection.classList.add('show');
+    }
+
+    if (isInViewport(animatedText)) {
+        animatedText.classList.add('show');
+    }
+}
+
 window.addEventListener('scroll', handleScroll);
+
+checkVisibility()
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
