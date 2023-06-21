@@ -1,15 +1,22 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function checkScroll() {
-    var quoteSection = document.querySelector('.animated-text');
-    var positionFromTop = quoteSection.getBoundingClientRect().top;
+let item = document.querySelector('.animated-text');
 
-    if (positionFromTop - window.innerHeight <= 0) {
-        quoteSection.classList.add('active');
-    }
+let options = {
+    rootMargin: '-10%',
+    threshold: 0.0
 }
-window.addEventListener('scroll', checkScroll)
+
+let observer = new IntersectionObserver(scollItem, options);
+
+function scrollItem(entry) {
+    entry.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    })
+}
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
