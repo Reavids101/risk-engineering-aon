@@ -30,12 +30,10 @@ handleScroll();
 
 window.addEventListener('scroll', function() {
     var animatedText = document.querySelector('.further');
-    var scrollPosition = animatedText.getBoundingClientRect().top;
-    var screenHeight = window.innerHeight;
-    if (scrollPosition < screenHeight * 0.75) {
-        animatedText.classList.add('fade-in');
+    var distanceFromTop = animatedText.getBoundingClientRect().top;
+    if (distanceFromTop - window.innerHeight < -100) {
+        animatedText.classList.add('slide-in');
     }
-
 });
 
 function loadYouTubeAPI() {
