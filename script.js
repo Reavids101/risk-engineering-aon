@@ -33,18 +33,18 @@ var animatedText = document.querySelector('.animated-text');
 var options = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.3
+    threshold: 0.1
 };
 
 var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
+        if (entry.intersectionRatio > 0.1) {
             entry.target.classList.add('show');
             observer.unobserve(entry.target);
         }
     });
-}, options
-);
+}, options);
+
 observer.observe(animatedText);
 
 function loadYouTubeAPI() {
