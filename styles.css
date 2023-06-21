@@ -233,9 +233,10 @@
 }
 
 .further-container {
-    max-width: 600px;
+    display: flex;
     margin: 0 auto;
     text-align: center;
+    justify-content: center;
 }
 
 .animated-text {
