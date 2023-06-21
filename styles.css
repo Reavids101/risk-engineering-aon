@@ -248,13 +248,13 @@
 
 .animated-text {
     font-family: "San Francisco";
-    color: #fff;
+    color: white;
     transform: translateY(30px);
     opacity: 0;
     transition: opacity 0.5s, transform 0.5s;
 }
 
-.animated-text.active {
+.animated-text:active {
     opacity: 1;
     transform: translateY(0);
 }
