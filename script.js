@@ -7,45 +7,26 @@ function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
         rect.top >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
 }
 
 function handleScroll() {
+    var furtherSection = document.querySelector('.further');
+    var animatedText = document.querySelector('.animated-text');
 
-    sections.forEach(section => {
-        if (isInViewport(section) && !section.classList.contains('visible')) {
-            section.classList.add('visible');
-        }
-    });
+    if (isInViewport(furtherSection)) {
+        furtherSection.classList.add('show');
+    }
 
-    if (Array.from(sections).every(section => section.classList.contains('visible'))) {
-        window.removeEventListener('scroll', handleScroll);
+    if (isInViewport(animatedText)) {
+        animatedText.classList.add('show');
     }
 }
 
 window.addEventListener('scroll', handleScroll);
-
-handleScroll();
-
-var animatedText = document.querySelector('.animated-text');
-
-var options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
-
-var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-        if (entry.intersectionRatio > 0.1) {
-            entry.target.classList.add('show');
-            observer.unobserve(entry.target);
-        }
-    });
-}, options);
-
-observer.observe(animatedText);
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
