@@ -239,6 +239,10 @@
     transform: translateY(200px) scaleX(3);
     opacity: 0;
 }
+.animated-text.active {
+    transform: translateY(0) scaleX(1);
+    opacity: 1;
+}
 
 
 @media (min-width: 768px) {

@@ -35,7 +35,11 @@ function addObserver(el, options){
 // Example usages:
 
 scrollTrigger('.animated-text', {
-    rootMargin: '-200px',
+    rootMargin: '0px',
+    threshold: 1.0,
+    cb: function (el) {
+        el.classList.add('active');
+    }
 })
 
 function loadYouTubeAPI() {
