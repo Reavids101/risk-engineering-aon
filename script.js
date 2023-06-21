@@ -3,10 +3,9 @@ element.classList.add('animate-slide-up');
 
 function scrollTrigger(selector, options = {}){
     let els = document.querySelectorAll(selector)
-    els = Array.from(els)
-    els.forEach(el => {
-        addObserver(el, options)
-    })
+    els.forEach((el) => {
+        el.classList.add('active');
+    });
 }
 
 function addObserver(el, options){
@@ -32,6 +31,14 @@ function addObserver(el, options){
     }, options)
     observer.observe(el)
 }
+
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    if (scrollPosition >= documentHeight) {
+        scrollTrigger('.animated-text');
+    }
+});
 // Example usages:
 
 scrollTrigger('.animated-text', {
