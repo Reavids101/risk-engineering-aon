@@ -14,9 +14,13 @@ function handleScroll() {
 
     if (window.scrollY >= textThreshold) {
         animatedText.classList.add('show');
+    } else {
+        animatedText.classList.remove('show');
     }
 }
 window.addEventListener('scroll', handleScroll)
+
+window.addEventListener('load', handleScroll)
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
