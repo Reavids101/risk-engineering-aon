@@ -1,19 +1,15 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function animateTextOnScroll() {
-    const animatedText = document.querySelector('.animated-text');
-    const windowHeight = window.innerHeight;
-    const scrollY = window.scrollY;
-    const triggerOffset = 100;
-    const elementOffset = animatedText.offsetTop;
-    const isVisible = scrollY + windowHeight > elementOffset + triggerOffset;
-    if (isVisible) {
-        animatedText.classList.add('active');
+function checkScroll() {
+    var quoteSection = document.querySelector('.animated-text');
+    var positionFromTop = quoteSection.getBoundingClientRect().top;
+
+    if (positionFromTop - window.innerHeight <= 0) {
+        quoteSection.classList.add('active');
     }
 }
-
-window.addEventListener('scroll', animateTextOnScroll)
+window.addEventListener('scroll', checkScroll)
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
