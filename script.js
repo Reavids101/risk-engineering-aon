@@ -5,7 +5,10 @@ function animateTextOnScroll() {
     const animatedText = document.querySelector('.animated-text');
     const windowHeight = window.innerHeight;
     const scrollY = window.scrollY;
-    if (scrollY + windowHeight >= document.documentElement.scrollHeight) {
+    const triggerOffset = 100;
+    const elementOffset = animatedText.offsetTop;
+    const isVisible = scrollY + windowHeight > elementOffset + triggerOffset;
+    if (isVisible) {
         animatedText.classList.add('active');
     }
 }
