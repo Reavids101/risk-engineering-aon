@@ -28,8 +28,8 @@ window.addEventListener('scroll', handleScroll);
 
 handleScroll();
 
-window.addEvenrListener('scroll', function() {
-    var animatedText = document.querySelector('further');
+window.addEventListener('scroll', function() {
+    var animatedText = document.querySelector('.further');
     var scrollPosition = animatedText.getBoundingClientRect().top;
     var screenHeight = window.innerHeight;
     if (scrollPosition < screenHeight * 0.75) {
