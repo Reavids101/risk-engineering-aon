@@ -1,22 +1,16 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-function scrollTrigger(selector) {
-    const els = document.querySelectorAll(selector);
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-    els.forEach((el) => {
-        observer.observe(el);
-    });
+function animateTextOnScroll() {
+    const animatedText = document.querySelector('.animated-text');
+    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+    if (scrollY + windowHeight >= document.documentElement.scrollHeight) {
+        animatedText.classList.add('active');
+    }
 }
 
-scrollTrigger('.animated-text');
+window.addEventListener('scroll', animateTextOnScroll)
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
