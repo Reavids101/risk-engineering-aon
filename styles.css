@@ -259,6 +259,10 @@ p.animated-text {
     animation: slide-up 3s ease-in-out forwards;
 }
 
+.gallery-pagination {
+    display: none;
+}
+
 
 @media (min-width: 600px) {
     .further {
@@ -282,6 +286,26 @@ p.animated-text {
     .gallery-item img {
         max-width: 100%;
         height: auto;
+    }
+
+    .gallery-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .gallery-pagination .page {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ccc;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .gallery-pagination .page:active {
+        background-color: #333;
     }
 
 }

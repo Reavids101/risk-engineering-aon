@@ -35,6 +35,17 @@ function scrollGallery(direction) {
     });
 }
 
+document.querySelector('.gallery-container').addEventListener('scroll', function() {
+    const scrollPos = this.scrollLeft;
+    const itemWidth = this.querySelector('.gallery-item').offsetWidth;
+    const activePage = Math.round(scrollPos / itemWidth);
+
+    const pages = document.querySelectorAll('.gallery-pagination .page');
+    pages.forEach(function(page, index) {
+        page.classList.togglke('active', index === activePage);
+    });
+});
+
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
         var tag = document.createElement('script');
