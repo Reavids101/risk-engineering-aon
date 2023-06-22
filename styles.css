@@ -89,7 +89,7 @@
     width: 350px;
     height: 350px;
     transition: transform 0.3s, box-shadow 0.3s;
-    color: #F8F7F3;
+    background-color: #F8F7F3;
 }
 
 .gallery-item:hover {
@@ -184,7 +184,7 @@
     padding-bottom: 400px;
     padding-left: 100px;
     padding-right: 100px;
-    filter: brightness(250%);
+    filter: brightness(500%);
     color: white;
 }
 
