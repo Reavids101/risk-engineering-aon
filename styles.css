@@ -169,9 +169,6 @@
     text-align: center;
     background-image: url("/risk-engineering-aon/wp3786960-big-city-wallpapers.jpg");
     height: 1000px;
-}
-
-.intro-filter {
     filter: brightness(50%);
 }
 
@@ -184,8 +181,7 @@
     padding-bottom: 400px;
     padding-left: 100px;
     padding-right: 100px;
-    filter: brightness(500%);
-    color: white;
+    filter: brightness(500%) !important;
 }
 
 .contact {
