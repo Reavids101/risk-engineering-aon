@@ -290,7 +290,7 @@ p.animated-text {
     }
 
     .gallery-item {
-        flex: 0 0 auto;
+        flex: 0 0 350px;
         scroll-snap-align: start;
         width: 100%;
     }
