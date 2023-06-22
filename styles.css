@@ -190,10 +190,11 @@
 .intro p {
     float: center;
     display: block;
-    color: black;
+    color: white;
     text-align: center;
     text-decoration: none;
     font-family: "San Francisco";
+    padding: 100px;
 }
 
 .contact {
