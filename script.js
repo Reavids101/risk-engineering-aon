@@ -1,6 +1,22 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
+$(document).ready(function() {
+
+    $('.gallery-container').slick( {
+        slidesToShow: 5.
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 5,
+                }
+            }
+        ]
+    });
+});
+
 const galleryContainer = document.querySelector('.gallery-container');
 const galleryItems = document.querySelector('.gallery-item');
 
