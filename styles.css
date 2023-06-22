@@ -183,6 +183,8 @@
     text-align: center;
     background-image: url("/risk-engineering-aon/New_York_and_Jersey_City_Skyline_Panorama.jpg");
     height: 300px;
+    filter: brightness(40%);
+
 }
 
 .intro p {
