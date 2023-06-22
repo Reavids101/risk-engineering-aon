@@ -1,35 +1,42 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-const galleryContainer = document.querySelector('.gallery-container');
+if (window.innerWidth <= 600) {
+    const galleryContainer = document.querySelector('.gallery-container');
+    const galleryItems = Array.from(galleryContainer.querySelectorAll('.gallery-item'));
+    const pagination = document.querySelector('.gallery-pagination');
+    const pages = Array.from(pagination.querySelectorAll('.page'));
 
-let startX = 0;
-let dist = 0;
+    let currentIndex = 0;
+    const itemWidth = galleryItems[0].offsetWidth;
 
-galleryContainer.addEventListener('touchstart', handleTouchStart, false);
-galleryContainer.addEventListener('touchmove', handleTouchMove, false);
+    pages[currentIndex].classList.add('active');
 
-function handleTouchStart(event) {
-    startX = event.touches[0].clientX;
-}
-
-function handleTouchMove(event) {
-    if (!startX) return;
-    const currentX = event.touches[0].clientX;
-    dist = currentX - startX;
-    if (dist >0) {
-        scrollGallery('prev');
-    } else if (dist < 0) {
-        scrollGallery('next');
+    function updateGalleryPosition() {
+        pages.forEach((page, index) => {
+            page.classList.toggle('active', index === currentIndex);
+        });
     }
-    startX = 0;
-}
+    pages.forEach((page, index) => {
+        page.addEventListener('click', () => {
+            currentIndex = index;
+            updateGalleryPosition();
+            updatePagination();
+        });
+    });
 
-function scrollGallery(direction) {
-    const scrollAmount = direction === 'left' ? galleryContainer.offsetWidth : -galleryContainer.offsetWidth;
-    galleryContainer.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth"
+    function scrollGallery(direction) {
+        if (direction === 'prev') {
+            currentIndex = (currentIndex - 1 +pages.length) % pages.length;
+        } else if (direction === 'next') {
+            currentIndex = (currentIndex + 1) % pages.length;
+        }
+        updateGalleryPosition();
+        updatePagination();
+    }
+    
+    window.addEventListener('resize', () => {
+        updateGalleryPosition();
     });
 }
 
