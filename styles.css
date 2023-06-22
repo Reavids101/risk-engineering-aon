@@ -185,6 +185,15 @@
     height: 300px;
 }
 
+.intro p {
+    float: center;
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-family: "San Francisco";
+}
+
 .contact {
     display: flex;
     flex-direction: column;
