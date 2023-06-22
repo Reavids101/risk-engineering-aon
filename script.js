@@ -3,6 +3,7 @@ element.classList.add('animate-slide-up');
 
 // Get necessary elements
 const gallery = document.querySelector('.gallery');
+const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
 const pagination = document.querySelector('.gallery-pagination');
 
 // Set initial page
@@ -40,7 +41,7 @@ function handleTouchMove(event) {
 
 // Function to show next page
 function showNextPage() {
-  if (currentPage < 4) { // Assuming you have 5 items in total
+  if (currentPage < galleryItems.length - 1) {
     currentPage++;
     updateGalleryPosition();
   }
@@ -56,7 +57,9 @@ function showPreviousPage() {
 
 // Function to update the gallery position
 function updateGalleryPosition() {
-  gallery.style.transform = `translateX(-${currentPage * 100}%)`;
+  const itemWidth = galleryItems[currentPage].offsetWidth;
+  const translateXValue = -currentPage * itemWidth;
+  gallery.style.transform = `translateX(${translateXValue}px)`;
   updatePagination();
 }
 
@@ -74,7 +77,7 @@ function updatePagination() {
 
 // Generate pagination circles based on the number of items
 function generatePaginationCircles() {
-  for (let i = 0; i < 5; i++) { // Assuming you have 5 items in total
+  for (let i = 0; i < galleryItems.length; i++) {
     const circle = document.createElement('span');
     pagination.appendChild(circle);
   }
@@ -83,6 +86,7 @@ function generatePaginationCircles() {
 // Initialize the carousel
 generatePaginationCircles();
 updatePagination();
+
 
 
 
