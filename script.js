@@ -1,6 +1,53 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
+const galleryContainer = document.querySelector('.gallery-container');
+const galleryItems = document.querySelector('.gallery-item');
+
+let isDragging = false;
+let startPosition = 0;
+let currentTranslate = 0;
+let previousTranslate = 0;
+
+galleryContainer.addEventListener('mousedown', startDragging);
+galleryContainer.addEventListener('mouseup', endDragging);
+galleryContainer.addEventListener('mouseleave', endDragging);
+galleryContainer.addEventListener('mousemove', drag);
+
+galleryContainer.addEventListener('touchstart', startDragging);
+galleryContainer.addEventListener('touchend', endDragging);
+galleryContainer.addEventListener('touchmove', drag);
+
+function startDragging(e) {
+    if (e.type === 'touchstart') {
+        startPosition = e.touches[0].clientX;
+    } else {
+        startPosition = e.clientX;
+    }
+    isDragging = true;
+}
+
+function endDragging() {
+    isDragging = false;
+    previousTranslate = currentTranslate;
+}
+
+function drag(e) {
+    if (!isDragging) return;
+
+    let currentPosition = 0;
+    if (e.type === 'touchmove') {
+        currentPosition = e.touches[0].clientX;
+    } else {
+        currentPosition = e.clientX;
+    }
+    const diff = currentPosition - startPosition;
+    currentTranslate = previousTranslate + diff;
+
+    galleryContainer.computedStyleMap.transform = 'translateX(${currentTranslate}px)';
+}
+
+
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
         var tag = document.createElement('script');

@@ -265,4 +265,14 @@ p.animated-text {
     .further {
         width: 100%;
     }
+
+    .gallery-container {
+        overflow: hidden;
+        display: flex;
+    }
+
+    .gallery-item {
+        flex: 0 0 auto;
+    }
+
 }
