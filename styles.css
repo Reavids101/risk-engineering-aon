@@ -192,7 +192,6 @@
 .intro p {
     float: center;
     display: block;
-    color: white;
     text-align: center;
     text-decoration: none;
     font-family: "San Francisco";
@@ -201,6 +200,7 @@
     padding-bottom: 400px;
     padding-left: 100px;
     padding-right: 100px;
+    filter: brightness(200%);
 }
 
 .contact {
