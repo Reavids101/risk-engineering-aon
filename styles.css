@@ -111,6 +111,9 @@
 .external-link {
     text-align: center;
     margin-top: auto;
+}
+
+.external-link p {
     font-size: 20px;
 }
 
