@@ -238,9 +238,11 @@
 }
 
 .further {
-    display: flex;
+    overflow: hidden;
+    flex: center;
     justify-content: center;
     align-items: center;
+    width: 100%;
     background-color: #333;
     padding: 50px 0 50px 0;
 }
