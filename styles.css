@@ -266,12 +266,17 @@ p.animated-text {
     }
 
     .gallery-container {
-        overflow: hidden;
         display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
     }
-
+    
     .gallery-item {
-        flex: 0 0 auto;
+        flex-shrink: 0;
+        width: 100%;
+        scroll-snap-align: start;
+        padding: 10px;
     }
 
 }

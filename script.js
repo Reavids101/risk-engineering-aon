@@ -1,68 +1,39 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-$(document).ready(function() {
-
-    $('.gallery-container').slick( {
-        slidesToShow: 5.
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 5,
-                }
-            }
-        ]
-    });
-});
-
 const galleryContainer = document.querySelector('.gallery-container');
-const galleryItems = document.querySelector('.gallery-item');
 
-let isDragging = false;
-let startPosition = 0;
-let currentTranslate = 0;
-let previousTranslate = 0;
+let startX;
 
-galleryContainer.addEventListener('mousedown', startDragging);
-galleryContainer.addEventListener('mouseup', endDragging);
-galleryContainer.addEventListener('mouseleave', endDragging);
-galleryContainer.addEventListener('mousemove', drag);
+galleryContainer.addEventListener('touchstart', handleTouchStart, false);
+galleryContainer.addEventListener('touchmove', handleTouchMove, false);
 
-galleryContainer.addEventListener('touchstart', startDragging);
-galleryContainer.addEventListener('touchend', endDragging);
-galleryContainer.addEventListener('touchmove', drag);
+function handleTouchStart(event) {
+    startX = event.touches[0].clientX;
+}
 
-function startDragging(e) {
-    if (e.type === 'touchstart') {
-        startPosition = e.touches[0].clientX;
-    } else {
-        startPosition = e.clientX;
+function handleTouchMove(event) {
+    const touchX = event.touches[0].clientX;
+    const distanceX = touchX - startX;
+
+    if (Math.abs(distanceX) >= 50) {
+        event.preventDefault();
+
+        if (distanceX > 0) {
+            scrollGallery('right');
+        } else {
+            scrollGallery('left')''
+        }
     }
-    isDragging = true;
 }
 
-function endDragging() {
-    isDragging = false;
-    previousTranslate = currentTranslate;
+function scrollGallery(direction) {
+    const scrollAmount = direction === 'left' ? galleryContainer.offsetWidth : -galleryContainer.offsetWidth;
+    galleryContainer.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
 }
-
-function drag(e) {
-    if (!isDragging) return;
-
-    let currentPosition = 0;
-    if (e.type === 'touchmove') {
-        currentPosition = e.touches[0].clientX;
-    } else {
-        currentPosition = e.clientX;
-    }
-    const diff = currentPosition - startPosition;
-    currentTranslate = previousTranslate + diff;
-
-    galleryContainer.computedStyleMap.transform = 'translateX(${currentTranslate}px)';
-}
-
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
