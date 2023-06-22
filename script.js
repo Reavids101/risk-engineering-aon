@@ -57,9 +57,16 @@ function showPreviousPage() {
 
 // Function to update the gallery position
 function updateGalleryPosition() {
+  const galleryWidth = gallery.offsetWidth;
   const itemWidth = galleryItems[currentPage].offsetWidth;
   const translateXValue = -currentPage * itemWidth;
-  gallery.style.transform = `translateX(${translateXValue}px)`;
+
+  gallery.style.width = '${itemWidth * galleryItems.length}px';
+
+  const maxTranslateXValue = -(itemWidth * (galleryItems.length - 1));
+
+  gallery.style.transform = 'translateX(${Math.max(translateXValue, maxTranslateXValue)}px';
+
   updatePagination();
 }
 
