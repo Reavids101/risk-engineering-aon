@@ -94,7 +94,7 @@
 
 .gallery-item:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .gallery-item img {
@@ -103,9 +103,9 @@
 }
 
 .title p {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .external-link {
