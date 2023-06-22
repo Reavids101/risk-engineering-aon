@@ -61,18 +61,6 @@
     color: black;
 }
 
-
-.intro p {
-    float: center;
-    display: block;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    font-family: "San Francisco";
-    font-size: 15px;
-    padding: 25px 20px 0px 20px;
-}
-
 .listing p {
     float: center;
     display: block;
@@ -101,7 +89,7 @@
     width: 350px;
     height: 350px;
     transition: transform 0.3s, box-shadow 0.3s;
-    color: whitesmoke;
+    color: #F8F7F3;
 }
 
 .gallery-item:hover {
@@ -196,7 +184,7 @@
     padding-bottom: 400px;
     padding-left: 100px;
     padding-right: 100px;
-    filter: brightness(200%);
+    filter: brightness(250%);
     color: white;
 }
 
