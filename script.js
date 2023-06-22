@@ -3,7 +3,8 @@ element.classList.add('animate-slide-up');
 
 const galleryContainer = document.querySelector('.gallery-container');
 
-let startX;
+let startX = 0;
+let dist = 0;
 
 galleryContainer.addEventListener('touchstart', handleTouchStart, false);
 galleryContainer.addEventListener('touchmove', handleTouchMove, false);
@@ -13,18 +14,15 @@ function handleTouchStart(event) {
 }
 
 function handleTouchMove(event) {
-    const touchX = event.touches[0].clientX;
-    const distanceX = touchX - startX;
-
-    if (Math.abs(distanceX) >= 50) {
-        event.preventDefault();
-
-        if (distanceX > 0) {
-            scrollGallery('right');
-        } else {
-            scrollGallery('left')''
-        }
+    if (!startX) return;
+    const currentX = event.touches[0].clientX;
+    dist = currentX - startX;
+    if (dist >0) {
+        scrollGallery('prev');
+    } else if (dist < 0) {
+        scrollGallery('next');
     }
+    startX = 0;
 }
 
 function scrollGallery(direction) {
