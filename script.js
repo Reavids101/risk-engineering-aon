@@ -3,7 +3,7 @@ element.classList.add('animate-slide-up');
 
 // Get necessary elements
 const gallery = document.querySelector('.gallery');
-const pagination = document.querySelector('.pagination');
+const pagination = document.querySelector('.gallery-pagination');
 
 // Set initial page
 let currentPage = 0;
