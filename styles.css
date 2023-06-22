@@ -195,6 +195,7 @@
     text-decoration: none;
     font-family: "San Francisco";
     padding: 100px;
+    filter: brightness(100%);
 }
 
 .contact {
