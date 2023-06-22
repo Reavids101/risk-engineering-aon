@@ -198,6 +198,9 @@
     font-family: "San Francisco";
     font-size: large;
     padding-top: 400px;
+    padding-bottom: 400px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .contact {
