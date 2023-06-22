@@ -1,55 +1,85 @@
 const element = document.querySelector('.gallery-item');
 element.classList.add('animate-slide-up');
 
-if (window.innerWidth <= 600) {
-    const galleryContainer = document.querySelector('.gallery-container');
-    const galleryItems = Array.from(galleryContainer.querySelectorAll('.gallery-item'));
-    const pagination = document.querySelector('.gallery-pagination');
-    const pages = Array.from(pagination.querySelectorAll('.page'));
+// Get necessary elements
+const gallery = document.querySelector('.gallery');
+const pagination = document.querySelector('.gallery-pagination');
 
-    let currentIndex = 0;
-    const itemWidth = galleryItems[0].offsetWidth;
+// Set initial page
+let currentPage = 0;
 
-    pages[currentIndex].classList.add('active');
+// Add event listeners for touch/swipe gestures
+let initialX = null;
 
-    function updateGalleryPosition() {
-        pages.forEach((page, index) => {
-            page.classList.toggle('active', index === currentIndex);
-        });
-    }
-    pages.forEach((page, index) => {
-        page.addEventListener('click', () => {
-            currentIndex = index;
-            updateGalleryPosition();
-            updatePagination();
-        });
-    });
+gallery.addEventListener('touchstart', (e) => {
+  initialX = e.touches[0].clientX;
+});
 
-    function scrollGallery(direction) {
-        if (direction === 'prev') {
-            currentIndex = (currentIndex - 1 +pages.length) % pages.length;
-        } else if (direction === 'next') {
-            currentIndex = (currentIndex + 1) % pages.length;
-        }
-        updateGalleryPosition();
-        updatePagination();
-    }
-    
-    window.addEventListener('resize', () => {
-        updateGalleryPosition();
-    });
+gallery.addEventListener('touchmove', (e) => {
+  if (initialX === null) {
+    return;
+  }
+
+  const currentX = e.touches[0].clientX;
+  const diffX = initialX - currentX;
+
+  if (diffX > 0) {
+    // Swiped left
+    showNextPage();
+  } else if (diffX < 0) {
+    // Swiped right
+    showPreviousPage();
+  }
+
+  initialX = null;
+});
+
+// Function to show next page
+function showNextPage() {
+  if (currentPage < 4) { // Assuming you have 5 items in total
+    currentPage++;
+    updateGalleryPosition();
+  }
 }
 
-document.querySelector('.gallery-container').addEventListener('scroll', function() {
-    const scrollPos = this.scrollLeft;
-    const itemWidth = this.querySelector('.gallery-item').offsetWidth;
-    const activePage = Math.round(scrollPos / itemWidth);
+// Function to show previous page
+function showPreviousPage() {
+  if (currentPage > 0) {
+    currentPage--;
+    updateGalleryPosition();
+  }
+}
 
-    const pages = document.querySelectorAll('.gallery-pagination .page');
-    pages.forEach(function(page, index) {
-        page.classList.togglke('active', index === activePage);
-    });
-});
+// Function to update the gallery position
+function updateGalleryPosition() {
+  gallery.style.transform = `translateX(-${currentPage * 100}%)`;
+  updatePagination();
+}
+
+// Function to update pagination circles
+function updatePagination() {
+  const circles = pagination.querySelectorAll('span');
+  circles.forEach((circle, index) => {
+    if (index === currentPage) {
+      circle.classList.add('active');
+    } else {
+      circle.classList.remove('active');
+    }
+  });
+}
+
+// Generate pagination circles based on the number of items
+function generatePaginationCircles() {
+  for (let i = 0; i < 5; i++) { // Assuming you have 5 items in total
+    const circle = document.createElement('span');
+    pagination.appendChild(circle);
+  }
+}
+
+// Initialize the carousel
+generatePaginationCircles();
+updatePagination();
+
 
 function loadYouTubeAPI() {
     if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {

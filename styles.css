@@ -272,14 +272,16 @@ p.animated-text {
         position: relative;
         overflow: hidden;
     }
+    .gallery {
+        display: flex;
+        transition: transform 0.3s ease;
+        width: max-content;
+        white-space: nowrap;
+    }
 
     .gallery-item {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        flex: 0 0 100%;
+        display: inline-block;
     }
 
     .gallery-item img {
@@ -290,19 +292,19 @@ p.animated-text {
     .gallery-pagination {
         display: flex;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
-    .gallery-pagination .page {
+    .gallery-pagination span {
         width: 10px;
         height: 10px;
         border-radius: 50%;
         background-color: #ccc;
-        margin: 0 5px;
+        margin: 0 4px;
         cursor: pointer;
     }
 
-    .gallery-pagination .page:active {
+    .gallery-pagination .active {
         background-color: #333;
     }
 
