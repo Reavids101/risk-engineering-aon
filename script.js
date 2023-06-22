@@ -3,36 +3,40 @@ element.classList.add('animate-slide-up');
 
 // Get necessary elements
 const gallery = document.querySelector('.gallery');
-const pagination = document.querySelector('.gallery-pagination');
+const pagination = document.querySelector('.pagination');
 
 // Set initial page
 let currentPage = 0;
-
-// Add event listeners for touch/swipe gestures
 let initialX = null;
 
-gallery.addEventListener('touchstart', (e) => {
-  initialX = e.touches[0].clientX;
-});
+// Add event listeners for touch/swipe gestures
+gallery.addEventListener('touchstart', handleTouchStart);
+gallery.addEventListener('touchmove', handleTouchMove);
 
-gallery.addEventListener('touchmove', (e) => {
-  if (initialX === null) {
+// Handle touch start event
+function handleTouchStart(event) {
+  initialX = event.touches[0].clientX;
+}
+
+// Handle touch move event
+function handleTouchMove(event) {
+  if (!initialX) {
     return;
   }
 
-  const currentX = e.touches[0].clientX;
+  const currentX = event.touches[0].clientX;
   const diffX = initialX - currentX;
 
-  if (diffX > 0) {
+  if (diffX > 0 && diffX > 50) {
     // Swiped left
     showNextPage();
-  } else if (diffX < 0) {
+  } else if (diffX < 0 && diffX < -50) {
     // Swiped right
     showPreviousPage();
   }
 
   initialX = null;
-});
+}
 
 // Function to show next page
 function showNextPage() {
@@ -79,6 +83,7 @@ function generatePaginationCircles() {
 // Initialize the carousel
 generatePaginationCircles();
 updatePagination();
+
 
 
 function loadYouTubeAPI() {
