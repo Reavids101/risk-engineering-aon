@@ -280,24 +280,17 @@ p.animated-text {
     .further {
         width: 100%;
     }
-    
-    .gallery-pagination {
+
+    .gallery {
         display: flex;
-        justify-content: center;
-        margin-top: 10px;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
     }
 
-    .gallery-pagination span {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #ccc;
-        margin: 0 4px;
-        cursor: pointer;
-    }
-
-    .gallery-pagination .active {
-        background-color: #333;
+    .gallery-item {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        width: 100%;
     }
 
 }
