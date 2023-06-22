@@ -90,7 +90,6 @@
     height: 350px;
     transition: transform 0.3s, box-shadow 0.3s;
     background-color: #F8F7F3;
-    flex: 0 0 100%;
 }
 
 .gallery-item:hover {
@@ -281,9 +280,7 @@ p.animated-text {
     .further {
         width: 100%;
     }
-
     
-
     .gallery-pagination {
         display: flex;
         justify-content: center;
