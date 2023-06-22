@@ -263,7 +263,7 @@ p.animated-text {
 }
 
 
-@media (max-width: 787px) {
+@media (max-width: 600px) {
     .further {
         width: 100%;
     }
