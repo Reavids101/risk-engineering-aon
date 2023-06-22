@@ -190,8 +190,6 @@
 }
 
 .intro p {
-    float: center;
-    display: block;
     text-align: center;
     text-decoration: none;
     font-family: "San Francisco";
