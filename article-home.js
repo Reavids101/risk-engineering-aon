@@ -1,3 +1,4 @@
+
 window.addEventListener('DOMContentLoaded', () => {
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
@@ -13,24 +14,31 @@ window.addEventListener('DOMContentLoaded', () => {
           const author = article.author;
           const snippet = article.snippet;
           const thumbnailUrl = article.thumbnailUrl;
-          const pdfUrl = article.pdfUrl; // Add the PDF URL field to your JSON structure
   
-          // Create an article preview element
-          const articlePreview = document.createElement('div');
-          articlePreview.classList.add('article-preview');
-          articlePreview.innerHTML = `
-            <h2>${title}</h2>
-            <p>Author: ${author}</p>
-            <p>${snippet}</p>
-            <img src="${thumbnailUrl}" alt="Article Thumbnail">
-          `;
+          // Fetch the PDF file
+          fetch(article.pdfUrl)
+            .then((response) => response.blob())
+            .then((pdfBlob) => {
+              // Create a URL for the PDF file
+              const pdfUrl = URL.createObjectURL(pdfBlob);
   
-          // Attach a click event listener to load and display the PDF
-          articlePreview.addEventListener('click', () => {
-            displayPDF(pdfUrl);
-          });
+              // Create an article preview element
+              const articlePreview = document.createElement('div');
+              articlePreview.classList.add('article-preview');
+              articlePreview.innerHTML = `
+                <h2>${title}</h2>
+                <p>Author: ${author}</p>
+                <p>${snippet}</p>
+                <img src="${thumbnailUrl}" alt="Article Thumbnail">
+              `;
   
-          articlePreviewsContainer.appendChild(articlePreview);
+              // Attach a click event listener to load and display the PDF
+              articlePreview.addEventListener('click', () => {
+                displayPDF(pdfUrl);
+              });
+  
+              articlePreviewsContainer.appendChild(articlePreview);
+            });
         });
       })
       .catch((error) => {
@@ -39,13 +47,11 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   
   function displayPDF(pdfUrl) {
-    // Embed the PDF using Adobe PDF Embed API
-    const adobeDCView = new AdobeDC.View({ clientId: '9114ab4228ab4d7aa486687f57a135da', divId: 'pdf-viewer' });
-    adobeDCView.previewFile({
-      content: { location: { url: pdfUrl } },
-      metaData: { fileName: 'Document' }
-    }, {});
+    const pdfViewer = document.getElementById('pdfViewer');
+    pdfViewer.src = pdfUrl;
   }
+  
+  
   
 
 
