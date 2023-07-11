@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('DOM content loaded');
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
-    const unsplashAccessKey = '';
+    const unsplashAccessKey = 'WESHPPb5k-8k9b8flIl-Nt505I309BlJ2E8VTFyI03w';
     const unsplashBaseUrl = 'https://api.unsplash.com';
 
     async function fetchUnsplashImage() {
