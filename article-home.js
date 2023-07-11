@@ -2,6 +2,16 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('DOM content loaded');
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
+    const unsplashAccessKey = '';
+    const unsplashBaseUrl = 'https://api.unsplash.com';
+
+    async function fetchUnsplashImage() {
+        const response = await fetch('${unsplashBaseUrl}/photos/random?client_id=${unsplashAccessKey}');
+        const data = await response.json();
+        const imageUrl = data.urls.regular;
+        return imageUrl;
+    }
+
     // Fetch the JSON files
     const articleFiles = ['article.json', 'article (1).json', 'article (2).json']; // Replace with your file names
     const articlePromises = articleFiles.map(file => fetch(file).then(response => response.json()));
