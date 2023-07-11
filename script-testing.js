@@ -125,19 +125,6 @@ window.onload = function() {
 
 document.getElementById('convertButton').addEventListener('click', handleConversion);
 
-async function getPdfUrl(file) {
-  const fileReader = new FileReader();
-  return new Promise((resolve, reject) => {
-    fileReader.onload = (event) => {
-      resolve(event.target.result);
-    };
-    fileReader.onerror = (event) => {
-      reject(event.target.error);
-    };
-    fileReader.readAsDataURL(file);
-  });
-}
-
   
 async function handleConversion() {
   const fileInput = document.getElementById('pdfFileInput');
@@ -151,7 +138,14 @@ async function handleConversion() {
       const title = extractTitle(content);
       const author = extractAuthor(content);
       const snippet = extractSnippet(content);
-      const pdfUrl = await getPdfUrl(files[index]);
+      let pdfUrl;
+
+      try {
+        pdfUrl = await generatePdfUrl(files[index]);
+      } catch (error) {
+        console.error('Error generating PDF URL for article ${index + 1};', error);
+        return;
+      }
 
       // Create an article preview element
       const articlePreview = document.createElement('div');
@@ -160,7 +154,7 @@ async function handleConversion() {
         <h2>${title}</h2>
         <p>Author: ${author}</p>
         <p>${snippet}</p>
-        <a href="${pdfUrl}" target="_blank" class="view-pdf">View PDF</a>
+        <a href="#" data-pdf-url="${pdfUrl}" class="view-pdf">View PDF</a>
       `;
 
       const articlePreviewsContainer = document.getElementById('articlePreviews');
@@ -173,6 +167,7 @@ async function handleConversion() {
         pdfUrl: pdfUrl
         // Add more fields as needed
       };
+      articlePreview.querySelector('.view-pdf').addEventListener('click', handleJsonDownload);
 
       articles.push(articleData);
 
@@ -203,20 +198,6 @@ async function handleConversion() {
   }
 }
 
-
-
-async function getPdfUrl(file) {
-  const fileReader = new FileReader();
-  return new Promise((resolve, reject) => {
-    fileReader.onload = (event) => {
-      resolve(event.target.result);
-    };
-    fileReader.onerror = (event) => {
-      reject(event.target.error);
-    };
-    fileReader.readAsDataURL(file);
-  });
-}
 
   
   function extractTitle(content) {
@@ -254,19 +235,39 @@ async function getPdfUrl(file) {
   
   document.getElementById('convertButton').addEventListener('click', handleConversion);
 
-  async function generateThumbnailUrl(title) {
+  async function generateThumbnailUrl(title, pdfUrl) {
     const unsplashAccessKey = 'WESHPPb5k-8k9b8flIl-Nt505I309BlJ2E8VTFyI03w';
     const unsplashBaseUrl = 'https://source.unsplash.com';
 
 
     
     const encodedTitle = encodeURIComponent(title);
-    const thumbnailUrl = '{$unsplashBaseUrl}/featured/?${encodedTitle}&sig=1&client_id=${unsplashAccessKey}';
+    const thumbnailUrl = '{$unsplashBaseUrl}/featured/?${encodedTitle}&sig=1&client_id=${unsplashAccessKey}&pdf_url=${encodeURIComponent(pdfUrl)}';
 
     return thumbnailUrl
 
 
   }
+
+  function handleJsonDownload(event) {
+    event.preventDefault();
+  
+    const target = event.target;
+    const articleIndex = target.getAttribute('data-article-index');
+    const articleData = articles[articleIndex];
+  
+    const jsonContent = JSON.stringify(articleData);
+    const filename = `article${parseInt(articleIndex) + 1}.json`;
+  
+    const element = document.createElement('a');
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    element.href = url;
+    element.download = filename;
+    element.click();
+    URL.revokeObjectURL(url);
+  }
+  
   
   
   

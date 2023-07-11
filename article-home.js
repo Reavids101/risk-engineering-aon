@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.classList.contains('view-pdf')) {
             const pdfUrl = target.getAttribute('data-pdf-url');
             displayPDF(pdfUrl);
+            handleJsonDownload(event);
         }
     });
   
@@ -48,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
     function displayPDF(pdfUrl) {
-      const pdfViewer = document.getElementById('pdfViewer');
-      pdfViewer.src = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}';
+      window.open(pdfUrl, '_blank');
     }
   });
   
