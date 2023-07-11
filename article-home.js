@@ -25,14 +25,12 @@ window.addEventListener('DOMContentLoaded', () => {
             <img src="${thumbnailUrl}" alt="Article Thumbnail">
           `;
   
-            const articleWrapper = document.createElement('div');
-            articleWrapper.classList.add('article-preview-wrapper');
-            articleWrapper.appendChild(articlePreview);
-
-            articleWrapper.addEventListener('click', () => {
-                loadPDF(pdfUrl);
-            });
-            articlePreviewsContainer.appendChild(articleWrapper);
+          // Attach a click event listener to load and display the PDF
+          articlePreview.addEventListener('click', () => {
+            displayPDF(pdfUrl);
+          });
+  
+          articlePreviewsContainer.appendChild(articlePreview);
         });
       })
       .catch((error) => {
@@ -40,19 +38,16 @@ window.addEventListener('DOMContentLoaded', () => {
       });
   });
   
-  function loadPDF(pdfUrl) {
-    pdfjsLib.getDocument(pdfUrl).promise
-      .then((pdf) => {
-        const viewerContainer = document.getElementById('pdfViewer');
-        const viewer = new pdfjsViewer.PDFViewer({
-          container: viewerContainer,
-        });
-        viewer.setDocument(pdf);
-      })
-      .catch((error) => {
-        console.error('Error loading PDF:', error);
-      });
+  function displayPDF(pdfUrl) {
+    // Embed the PDF using Adobe PDF Embed API
+    const adobeDCView = new AdobeDC.View({ clientId: '9114ab4228ab4d7aa486687f57a135da', divId: 'pdf-viewer' });
+    adobeDCView.previewFile({
+      content: { location: { url: pdfUrl } },
+      metaData: { fileName: 'Document' }
+    }, {});
   }
+  
+
 
   
   
