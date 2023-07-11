@@ -14,13 +14,8 @@ window.addEventListener('DOMContentLoaded', () => {
           const author = article.author;
           const snippet = article.snippet;
           const thumbnailUrl = article.thumbnailUrl;
-  
-          // Fetch the PDF file
-          fetch(article.pdfUrl)
-            .then((response) => response.blob())
-            .then((pdfBlob) => {
-              // Create a URL for the PDF file
-              const pdfUrl = URL.createObjectURL(pdfBlob);
+          const pdfUrl = article.pdfUrl;
+
   
               // Create an article preview element
               const articlePreview = document.createElement('div');
