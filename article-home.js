@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
     // Fetch the JSON files
-    const articleFiles = ['article.json', 'article (1).json', 'article (2).json']; // Replace with your file names
+    const articleFiles = ['article1.json', 'article2.json', 'article3.json']; // Replace with your file names
     const articlePromises = articleFiles.map((file) => fetch(file).then((response) => response.json()));
   
     Promise.all(articlePromises)
