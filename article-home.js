@@ -25,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 <p>Author: ${author}</p>
                 <p>${snippet}</p>
                 <img src="${thumbnailUrl}" alt="Article Thumbnail">
+                <p>${pdfUrl}</p>
               `;
   
               // Attach a click event listener to load and display the PDF
@@ -39,7 +40,6 @@ window.addEventListener('DOMContentLoaded', () => {
       .catch((error) => {
         console.error('An error occurred while fetching the articles:', error);
       });
-  });
   
   function displayPDF(pdfUrl) {
     const pdfViewer = document.getElementById('pdfViewer');
