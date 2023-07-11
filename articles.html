@@ -6,7 +6,15 @@
 </head>
 <header>
     <style>
-
+        .article-preview {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .article-preview-wrapper {
+            cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </header>
@@ -21,9 +29,8 @@
         <a href="contact.html">Contact</a>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items...">
     </section>
-    <div class="article-preview-wrapper">
+    <div class="articles">
         <div id="articlePreviews"></div>
-        <div id="pdfViewer"></div>
         <script src="article-home.js"></script>
     </div>
 </body>
