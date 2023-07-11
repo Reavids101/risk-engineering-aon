@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 <p>Author: ${author}</p>
                 <p>${snippet}</p>
                 <img src="${thumbnailUrl}" alt="Article Thumbnail">
-                <p>${pdfUrl}</p>
+                <a href="${pdfUrl}" target="_blank">View PDF</a>
               `;
   
               // Attach a click event listener to load and display the PDF
