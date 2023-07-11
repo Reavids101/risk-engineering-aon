@@ -1,5 +1,5 @@
 
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
     // Fetch the JSON files
