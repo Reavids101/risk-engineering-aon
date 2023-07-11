@@ -67,66 +67,157 @@ window.onload = function() {
     }
     return snippet;
   }
-  
+
   async function handleConversion() {
-    const fileInput = document.getElementById('pdfFileInput');
-    const files = fileInput.files;
-  
-    try {
-      const jsonData = await convertMultiplePDFsToText(files);
-      const articles = [];
-  
-      await Promise.all(jsonData.map(async (content, index) => {
-        const title = extractTitle(content);
-        const author = extractAuthor(content);
-        const snippet = extractSnippet(content);
+  const fileInput = document.getElementById('pdfFileInput');
+  const files = fileInput.files;
 
-        let thumbnailUrl;
+  try {
+    const jsonData = await convertMultiplePDFsToText(files);
+    const articles = [];
 
-        try {
-          thumbnailUrl = await generateThumbnailUrl(content);
-        } catch (error) {
-          console.error('Error fetching thumbnail for article ${index + 1}:', error);
-          thumbnailUrl = '';
-        }
+    await Promise.all(jsonData.map(async (content, index) => {
+      const title = extractTitle(content);
+      const author = extractAuthor(content);
+      const snippet = extractSnippet(content);
+      const pdfUrl = await getPdfUrl(files[index]);
 
-        // Create an article preview element
+      // Create an article preview element
       const articlePreview = document.createElement('div');
       articlePreview.classList.add('article-preview');
       articlePreview.innerHTML = `
         <h2>${title}</h2>
         <p>Author: ${author}</p>
         <p>${snippet}</p>
-        <img src="${thumbnailUrl}" alt="Article Thumbnail">
+        <a href="#" data-pdf-url="${pdfUrl}" class="view-pdf">View PDF</a>
       `;
+
       const articlePreviewsContainer = document.getElementById('articlePreviews');
       articlePreviewsContainer.appendChild(articlePreview);
 
+      const articleData = {
+        title: title,
+        author: author,
+        snippet: snippet,
+        pdfUrl: pdfUrl
+        // Add more fields as needed
+      };
 
-        const articleData = {
-          title: title,
-          author: author,
-          snippet: snippet,
-          thumbnailUrl: thumbnailUrl
-          // Add more fields as needed
-        };
-        articles.push(articleData);
-      
-            const jsonContent = convertToJSON(articleData);
-            const filename = 'article.json';
-            downloadJSON(jsonContent, filename);
-      
-            }));
+      articles.push(articleData);
 
-            
-       showMessage('Conversion and download complete!');
+      const jsonContent = convertToJSON(articleData);
+      const filename = `article${index + 1}.json`;
 
+      try {
+        downloadJSON(jsonContent, filename);
+      } catch (error) {
+        console.error(`Error downloading JSON for article ${index + 1}:`, error);
+        // Continue execution or handle the error as needed
+      }
+    }));
 
-    } catch (error) {
-      console.error(error);
-      showMessage('An error occurred during conversion and download:' + error.message);
-    }
+    showMessage('Conversion and download complete!');
+  } catch (error) {
+    console.error('Error during conversion and download:', error);
+    showMessage('An error occurred during conversion and download.');
   }
+}
+
+document.getElementById('convertButton').addEventListener('click', handleConversion);
+
+async function getPdfUrl(file) {
+  const fileReader = new FileReader();
+  return new Promise((resolve, reject) => {
+    fileReader.onload = (event) => {
+      resolve(event.target.result);
+    };
+    fileReader.onerror = (event) => {
+      reject(event.target.error);
+    };
+    fileReader.readAsDataURL(file);
+  });
+}
+
+  
+async function handleConversion() {
+  const fileInput = document.getElementById('pdfFileInput');
+  const files = fileInput.files;
+
+  try {
+    const jsonData = await convertMultiplePDFsToText(files);
+    const articles = [];
+
+    await Promise.all(jsonData.map(async (content, index) => {
+      const title = extractTitle(content);
+      const author = extractAuthor(content);
+      const snippet = extractSnippet(content);
+      const pdfUrl = await getPdfUrl(files[index]);
+
+      // Create an article preview element
+      const articlePreview = document.createElement('div');
+      articlePreview.classList.add('article-preview');
+      articlePreview.innerHTML = `
+        <h2>${title}</h2>
+        <p>Author: ${author}</p>
+        <p>${snippet}</p>
+        <a href="${pdfUrl}" target="_blank" class="view-pdf">View PDF</a>
+      `;
+
+      const articlePreviewsContainer = document.getElementById('articlePreviews');
+      articlePreviewsContainer.appendChild(articlePreview);
+
+      const articleData = {
+        title: title,
+        author: author,
+        snippet: snippet,
+        pdfUrl: pdfUrl
+        // Add more fields as needed
+      };
+
+      articles.push(articleData);
+
+      const jsonContent = convertToJSON(articleData);
+      const filename = `article${index + 1}.json`;
+
+      try {
+        downloadJSON(jsonContent, filename);
+      } catch (error) {
+        console.error(`Error downloading JSON for article ${index + 1}:`, error);
+        // Continue execution or handle the error as needed
+      }
+    }));
+
+    // Attach event listeners to the "View PDF" links
+    const viewPDFLinks = document.getElementsByClassName('view-pdf');
+    Array.from(viewPDFLinks).forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const pdfUrl = link.getAttribute('data-pdf-url');
+      });
+    });
+
+    showMessage('Conversion and download complete!');
+  } catch (error) {
+    console.error('Error during conversion and download:', error);
+    showMessage('An error occurred during conversion and download.');
+  }
+}
+
+
+
+async function getPdfUrl(file) {
+  const fileReader = new FileReader();
+  return new Promise((resolve, reject) => {
+    fileReader.onload = (event) => {
+      resolve(event.target.result);
+    };
+    fileReader.onerror = (event) => {
+      reject(event.target.error);
+    };
+    fileReader.readAsDataURL(file);
+  });
+}
+
   
   function extractTitle(content) {
     const titleRegex = /Title: (.+)/;
@@ -167,10 +258,14 @@ window.onload = function() {
     const unsplashAccessKey = 'WESHPPb5k-8k9b8flIl-Nt505I309BlJ2E8VTFyI03w';
     const unsplashBaseUrl = 'https://source.unsplash.com';
 
+
+    
     const encodedTitle = encodeURIComponent(title);
     const thumbnailUrl = '{$unsplashBaseUrl}/featured/?${encodedTitle}&sig=1&client_id=${unsplashAccessKey}';
 
     return thumbnailUrl
+
+
   }
   
   
