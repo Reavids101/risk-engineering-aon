@@ -1,29 +1,19 @@
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM content loaded');
     const articlePreviewsContainer = document.getElementById('articlePreviews');
   
-    const unsplashAccessKey = 'WESHPPb5k-8k9b8flIl-Nt505I309BlJ2E8VTFyI03w';
-    const unsplashBaseUrl = 'https://api.unsplash.com';
-
-    async function fetchUnsplashImage() {
-        const response = await fetch('${unsplashBaseUrl}/photos/random?client_id=${unsplashAccessKey}');
-        const data = await response.json();
-        const imageUrl = data.urls.regular;
-        return imageUrl;
-    }
-
     // Fetch the JSON files
     const articleFiles = ['article.json', 'article (1).json', 'article (2).json']; // Replace with your file names
-    const articlePromises = articleFiles.map(file => fetch(file).then(response => response.json()));
+    const articlePromises = articleFiles.map((file) => fetch(file).then((response) => response.json()));
   
     Promise.all(articlePromises)
-      .then(articles => {
-        articles.forEach(article => {
+      .then((articles) => {
+        articles.forEach((article) => {
           // Extract article details
           const title = article.title;
           const author = article.author;
           const snippet = article.snippet;
           const thumbnailUrl = article.thumbnailUrl;
+          const pdfUrl = article.pdfUrl; // Add the PDF URL field to your JSON structure
   
           // Create an article preview element
           const articlePreview = document.createElement('div');
@@ -35,12 +25,32 @@ window.addEventListener('DOMContentLoaded', () => {
             <img src="${thumbnailUrl}" alt="Article Thumbnail">
           `;
   
+          // Attach a click event listener to load and display the PDF
+          articlePreview.addEventListener('click', () => {
+            loadPDF(pdfUrl);
+          });
+  
           articlePreviewsContainer.appendChild(articlePreview);
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('An error occurred while fetching the articles:', error);
       });
   });
+  
+  function loadPDF(pdfUrl) {
+    pdfjsLib.getDocument(pdfUrl).promise
+      .then((pdf) => {
+        const viewerContainer = document.getElementById('pdfViewer');
+        const viewer = new pdfjsViewer.PDFViewer({
+          container: viewerContainer,
+        });
+        viewer.setDocument(pdf);
+      })
+      .catch((error) => {
+        console.error('Error loading PDF:', error);
+      });
+  }
+  
   
   
