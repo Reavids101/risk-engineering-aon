@@ -25,12 +25,14 @@ window.addEventListener('DOMContentLoaded', () => {
             <img src="${thumbnailUrl}" alt="Article Thumbnail">
           `;
   
-          // Attach a click event listener to load and display the PDF
-          articlePreview.addEventListener('click', () => {
-            loadPDF(pdfUrl);
-          });
-  
-          articlePreviewsContainer.appendChild(articlePreview);
+            const articleWrapper = document.createElement('div');
+            articleWrapper.classList.add('article-preview-wrapper');
+            articleWrapper.appendChild(articlePreview);
+
+            articleWrapper.addEventListener('click', () => {
+                loadPDF(pdfUrl);
+            });
+            articlePreviewsContainer.appendChild(articleWrapper);
         });
       })
       .catch((error) => {
@@ -51,6 +53,6 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('Error loading PDF:', error);
       });
   }
-  
+
   
   
