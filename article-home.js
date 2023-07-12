@@ -1,57 +1,164 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const articlePreviewsContainer = document.getElementById('articlePreviews');
-    articlePreviewsContainer.addEventListener('click', (event) => {
-        event.preventDefault();
-        const target = event.target;
-        if (target.classList.contains('view-pdf')) {
-            const pdfUrl = target.getAttribute('data-pdf-url');
-            displayPDF(pdfUrl);
-            handleJsonDownload(event);
-        }
-    });
-  
-    // Fetch the JSON files
-    const articleFiles = ['article1.json', 'article2.json', 'article3.json']; // Replace with your file names
-    const articlePromises = articleFiles.map((file) => fetch(file).then((response) => response.json()));
-  
-    Promise.all(articlePromises)
-      .then((articles) => {
-        articles.forEach((article) => {
-          // Extract article details
-          const title = article.title;
-          const author = article.author;
-          const snippet = article.snippet;
-          const thumbnailUrl = article.thumbnailUrl;
-          const pdfUrl = article.pdfUrl;
-  
-          // Create an article preview element
-          const articlePreview = document.createElement('div');
-          articlePreview.classList.add('article-preview');
-          articlePreview.innerHTML = `
-            <h2>${title}</h2>
-            <p>Author: ${author}</p>
-            <p>${snippet}</p>
-            <img src="${thumbnailUrl}" alt="Article Thumbnail">
-            <a href="#" data-pdf-url="${pdfUrl}" class="view-pdf">View PDF</a>
-          `;
-  
-          // Attach a click event listener to load and display the PDF
-          articlePreview.addEventListener('click', () => {
-            displayPDF(pdfUrl);
-          });
-  
-          articlePreviewsContainer.appendChild(articlePreview);
-        });
-      })
-      .catch((error) => {
-        console.error('An error occurred while fetching the articles:', error);
-      });
+// Define an array to store the articles
+var articles = [];
 
-  
-    function displayPDF(pdfUrl) {
-      window.open(pdfUrl, '_blank');
-    }
+// Fetch the JSON files and add the articles to the array
+for (var i = 0; i < 3; i++) {
+  var url = "article (" + i + ").json";
+  fetch(url)
+    .then(response => response.json())
+    .then(data => articles = articles.concat(data))
+    .catch(error => console.error("Error loading articles:", error));
+}
+
+// Get the articles container element
+var articlesContainer = document.getElementById("articles");
+
+// Loop through each article and create an article preview
+for (var i = 0; i < articles.length; i++) {
+  var article = articles[i];
+
+  // Create a card element for the article preview
+  var card = document.createElement("div");
+  card.classList.add("card", "mb-3");
+
+  // Create an image element for the thumbnail
+  var img = document.createElement("img");
+  img.classList.add("card-img-top");
+  img.src = article.thumbnailURL;
+  card.appendChild(img);
+
+  // Create the card body element
+  var cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+  card.appendChild(cardBody);
+
+  // Create the card title element
+  var title = document.createElement("h5");
+  title.classList.add("card-title");
+  title.textContent = article.title;
+  cardBody.appendChild(title);
+
+  // Create the card author element
+  var author = document.createElement("p");
+  author.classList.add("card-text");
+  author.textContent = "By " + article.author;
+  cardBody.appendChild(author);
+
+  // Create the card snippet element
+  var snippet = document.createElement("p");
+  snippet.classList.add("card-text");
+  snippet.textContent = article.snippet;
+  cardBody.appendChild(snippet);
+
+  // Create the view button element
+  var viewBtn = document.createElement("button");
+  viewBtn.classList.add("btn", "btn-primary");
+  viewBtn.textContent = "View PDF";
+  viewBtn.addEventListener("click", function() {
+    // Load the PDF file using the Easy Adobe API
+    var viewer = adobeDC.View({
+      clientId: "9114ab4228ab4d7aa486687f57a135da",
+      divId: "adobe-dc-view",
+      embedMode: "SIZED_CONTAINER",
+      showDownloadPDF: true,
+      showPrintPDF: true,
+      showLeftHandPanel: true,
+      showAnnotationTools: true,
+      showPageControls: true,
+      showRightHandPanel: true,
+      showSharePDF: true,
+      showToolbar: true,
+      enableFormFilling: true,
+      locale: "en-US"
+    });
+    viewer.previewFile({
+      content: {
+        location: {
+          url: article.pdfURL
+        }
+      }
+    }, {});
   });
+  cardBody.appendChild(viewBtn);
+
+  // Add the card to the articles container
+  articlesContainer.appendChild(card);
+}
+
+// Get the articles container element
+var articlesContainer = document.getElementById("articles");
+
+// Loop through each article and create an article preview
+for (var i = 0; i < articles.length; i++) {
+  var article = articles[i];
+
+  // Create a card element for the article preview
+  var card = document.createElement("div");
+  card.classList.add("card", "mb-3");
+
+  // Create an image element for the thumbnail
+  var img = document.createElement("img");
+  img.classList.add("card-img-top");
+  img.src = article.thumbnailURL;
+  card.appendChild(img);
+
+  // Create the card body element
+  var cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+  card.appendChild(cardBody);
+
+  // Create the card title element
+  var title = document.createElement("h5");
+  title.classList.add("card-title");
+  title.textContent = article.title;
+  cardBody.appendChild(title);
+
+  // Create the card author element
+  var author = document.createElement("p");
+  author.classList.add("card-text");
+  author.textContent = "By " + article.author;
+  cardBody.appendChild(author);
+
+  // Create the card snippet element
+  var snippet = document.createElement("p");
+  snippet.classList.add("card-text");
+  snippet.textContent = article.snippet;
+  cardBody.appendChild(snippet);
+
+  // Create the view button element
+  var viewBtn = document.createElement("button");
+  viewBtn.classList.add("btn", "btn-primary");
+  viewBtn.textContent = "View PDF";
+  viewBtn.addEventListener("click", function() {
+    // Load the PDF file using the Easy Adobe API
+    var viewer = adobeDC.View({
+      clientId: "YOUR_CLIENT_ID",
+      divId: "adobe-dc-view",
+      embedMode: "SIZED_CONTAINER",
+      showDownloadPDF: true,
+      showPrintPDF: true,
+      showLeftHandPanel: true,
+      showAnnotationTools: true,
+      showPageControls: true,
+      showRightHandPanel: true,
+      showSharePDF: true,
+      showToolbar: true,
+      enableFormFilling: true,
+      locale: "en-US"
+    });
+    viewer.previewFile({
+      content: {
+        location: {
+          url: article.pdfURL
+        }
+      }
+    }, {});
+  });
+  cardBody.appendChild(viewBtn);
+
+  // Add the card to the articles container
+  articlesContainer.appendChild(card);
+}
   
   
   
