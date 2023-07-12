@@ -16,75 +16,49 @@ for (var i = 0; i < 3; i++) {
       for (var i = 0; i < articles.length; i++) {
         var article = articles[i];
 
-        // Create a card element for the article preview
-        var card = document.createElement("div");
-        card.classList.add("card", "mb-3");
+        // Create a div element for the article preview
+        var articlePreview = document.createElement("div");
+        articlePreview.classList.add("article-preview");
 
-        // Create an image element for the thumbnail
-        var img = document.createElement("img");
-        img.classList.add("card-img-top");
-        img.src = article.thumbnailURL;
-        card.appendChild(img);
-
-        // Create the card body element
-        var cardBody = document.createElement("div");
-        cardBody.classList.add("card-body");
-        card.appendChild(cardBody);
-
-        // Create the card title element
-        var title = document.createElement("h5");
-        title.classList.add("card-title");
+        // Create the article preview title element
+        var title = document.createElement("h2");
         title.textContent = article.title;
-        cardBody.appendChild(title);
+        articlePreview.appendChild(title);
 
-        // Create the card author element
-        var author = document.createElement("p");
-        author.classList.add("card-text");
+        // Create the article preview author element
+        var author = document.createElement("div");
+        author.classList.add("author");
         author.textContent = "By " + article.author;
-        cardBody.appendChild(author);
+        articlePreview.appendChild(author);
 
-        // Create the card snippet element
-        var snippet = document.createElement("p");
-        snippet.classList.add("card-text");
+        // Create the article preview snippet element
+        var snippet = document.createElement("div");
+        snippet.classList.add("snippet");
         snippet.textContent = article.snippet;
-        cardBody.appendChild(snippet);
+        articlePreview.appendChild(snippet);
 
         // Create the view button element
         var viewBtn = document.createElement("button");
-        viewBtn.classList.add("btn", "btn-primary");
+        viewBtn.classList.add("view-btn");
         viewBtn.textContent = "View PDF";
         viewBtn.addEventListener("click", function() {
-          // Load the PDF file using PDF.js
-          var viewerContainer = document.getElementById("viewer");
-          pdfjsLib.getDocument(article.pdfURL).promise.then(function(pdf) {
-            pdf.getPage(1).then(function(page) {
-              var scale = 1.5;
-              var viewport = page.getViewport({ scale: scale });
-              var canvas = document.createElement("canvas");
-              var context = canvas.getContext("2d");
-              canvas.height = viewport.height;
-              canvas.width = viewport.width;
-              viewerContainer.appendChild(canvas);
-              page.render({
-                canvasContext: context,
-                viewport: viewport
-              });
-            });
-          });
-        });
-        cardBody.appendChild(viewBtn);
+          // Remove any existing PDF viewer element
+          var pdfViewerContainer = document.getElementById("pdf-viewer");
+          while (pdfViewerContainer.firstChild) {
+            pdfViewerContainer.removeChild(pdfViewerContainer.firstChild);
+          }
 
-        // Add the card to the articles container
-        articlesContainer.appendChild(card);
+          // Create a new PDF viewer element
+          var pdfViewer = document.createElement("iframe");
+          pdfViewer.src = article.pdfURL;
+          pdfViewer.classList.add("pdf-viewer");
+          pdfViewerContainer.appendChild(pdfViewer);
+        });
+        articlePreview.appendChild(viewBtn);
+
+        // Add the article preview to the articles container
+        articlesContainer.appendChild(articlePreview);
       }
     })
     .catch(error => console.error("Error loading articles:", error));
 }
-  
-  
-  
-  
-
-
-  
-  
