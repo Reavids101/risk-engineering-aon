@@ -19,7 +19,7 @@ Promise.all(fileNames.map((fileName) => fetch(`${baseURL}${fileName}`).then((res
   });
 
 function renderArticles(articles) {
-  const container = document.getElementById("article-container");
+  const container = document.getElementById("articles");
   container.innerHTML = "";
 
   articles.forEach((article) => {

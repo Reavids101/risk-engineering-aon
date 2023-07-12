@@ -1,83 +1,80 @@
 <!DOCTYPE html>
-<head>
-</head>
-<header>
-    <style>
-        /* Style for the article preview container */
-.article-preview {
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Style for the article preview title */
-.article-preview h2 {
-  font-size: 10px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-/* Style for the article preview author */
-.article-preview .author {
-  font-size: 10px;
-  margin-bottom: 10px;
-}
-
-/* Style for the article preview snippet */
-.article-preview .snippet {
-  font-size: 10px;
-  margin-bottom: 10px;
-}
-
-/* Style for the view button */
-.view-btn {
-  background-color: #007bff;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px;
-}
-
-.thumbnail {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    margin: 0 auto;
-    display: block;
-}
-
-/* Style for the PDF viewer container */
-.pdf-viewer {
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  padding: 20px;
-}
-
-    </style>
+<html>
+  <head>
+    <title>Risk Engineering Articles</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-</header>
-<body>
+    <style>
+      /* Style for the article preview container */
+      .article-preview {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Style for the article preview title */
+      .article-preview h2 {
+        font-size: 10px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      /* Style for the article preview author */
+      .article-preview .author {
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+
+      /* Style for the article preview snippet */
+      .article-preview .snippet {
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+
+      /* Style for the view button */
+      .view-btn {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .thumbnail {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        margin: 0 auto;
+        display: block;
+      }
+
+      /* Style for the PDF viewer container */
+      .pdf-viewer {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
     <section class="navbar">
-        <img src="/risk-engineering-aon/AON.svg">
-        <h1>Risk Engineering Articles</h1>
-        <a href="index.html">Home</a>
-        <a href="articles.html">Articles</a>
-        <a href="videos.html">Videos</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items...">
+      <img src="/risk-engineering-aon/AON.svg">
+      <h1>Risk Engineering Articles</h1>
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items...">
     </section>
     <div class="articles">
-        <div id="articles"></div>
-        <div id="viewer"></div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-        <script src="article-home.js"></script>
+      <div id="articles"></div>
+      <div id="viewer"></div>
     </div>
-</body>
-<footer>
-
-</footer>
+    <script src="article-home.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js" async></script>
+  </body>
+</html>
