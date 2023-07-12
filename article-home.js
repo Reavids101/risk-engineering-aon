@@ -20,6 +20,16 @@ for (var i = 0; i < 3; i++) {
         var articlePreview = document.createElement("div");
         articlePreview.classList.add("article-preview");
 
+        // Create the article preview thumbnail element
+        var thumbnail = document.createElement("img");
+        thumbnail.classList.add("thumbnail");
+        thumbnail.src = article.thumbnailURL;
+        thumbnail.addEventListener("click", function() {
+          // Open the article in a new browser tab
+          window.open(article.browserURL);
+        });
+        articlePreview.appendChild(thumbnail);
+
         // Create the article preview title element
         var title = document.createElement("h2");
         title.textContent = article.title;
