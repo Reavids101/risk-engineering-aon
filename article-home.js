@@ -54,29 +54,23 @@ for (var i = 0; i < 3; i++) {
         viewBtn.classList.add("btn", "btn-primary");
         viewBtn.textContent = "View PDF";
         viewBtn.addEventListener("click", function() {
-          // Load the PDF file using the Easy Adobe API
-          var viewer = adobeDC.View({
-            clientId: "9114ab4228ab4d7aa486687f57a135da",
-            divId: "adobe-dc-view",
-            embedMode: "SIZED_CONTAINER",
-            showDownloadPDF: true,
-            showPrintPDF: true,
-            showLeftHandPanel: true,
-            showAnnotationTools: true,
-            showPageControls: true,
-            showRightHandPanel: true,
-            showSharePDF: true,
-            showToolbar: true,
-            enableFormFilling: true,
-            locale: "en-US"
+          // Load the PDF file using PDF.js
+          var viewerContainer = document.getElementById("viewer");
+          pdfjsLib.getDocument(article.pdfURL).promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+              var scale = 1.5;
+              var viewport = page.getViewport({ scale: scale });
+              var canvas = document.createElement("canvas");
+              var context = canvas.getContext("2d");
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+              viewerContainer.appendChild(canvas);
+              page.render({
+                canvasContext: context,
+                viewport: viewport
+              });
+            });
           });
-          viewer.previewFile({
-            content: {
-              location: {
-                url: article.pdfURL
-              }
-            }
-          }, {});
         });
         cardBody.appendChild(viewBtn);
 
