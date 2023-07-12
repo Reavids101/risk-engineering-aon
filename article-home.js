@@ -9,19 +9,10 @@ const fileNames = [
   // add more file names as needed
 ];
 
-// Loop through each file name and update the corresponding elements with the new URL
-fileNames.forEach((fileName) => {
-  const elements = document.querySelectorAll(`[src="./${fileName}"]`);
-  elements.forEach((element) => {
-    element.src = `${baseURL}${fileName}`;
-  });
-});
-
-// Fetch the JSON data and render the articles
-fetch("https://raw.githubusercontent.com/reavids101/risk-engineering-aon/main/article-list.json")
-  .then((response) => response.json())
+// Loop through each file name and fetch the corresponding JSON data
+Promise.all(fileNames.map((fileName) => fetch(`${baseURL}${fileName}`).then((response) => response.json())))
   .then((data) => {
-    renderArticles(data.articles);
+    renderArticles(data);
   })
   .catch((error) => {
     console.error("Error loading articles:", error);
