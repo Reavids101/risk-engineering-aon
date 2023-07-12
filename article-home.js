@@ -3,7 +3,7 @@ var articles = [];
 
 // Fetch the JSON files and add the articles to the array
 for (var i = 0; i < 3; i++) {
-  var url = "article (" + i + ").json";
+  var url = "https://raw.githubusercontent.com/reavids101/risk-engineering-aon/main/article (" + i + ").json";
   fetch(url)
     .then(response => response.json())
     .then(data => articles = articles.concat(data))
