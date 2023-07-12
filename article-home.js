@@ -18,7 +18,7 @@ fileNames.forEach((fileName) => {
 });
 
 // Fetch the JSON data and render the articles
-fetch("./article-list.json")
+fetch("https://raw.githubusercontent.com/reavids101/risk-engineering-aon/main/article-list.json")
   .then((response) => response.json())
   .then((data) => {
     renderArticles(data.articles);
