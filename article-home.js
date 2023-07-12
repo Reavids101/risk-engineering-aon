@@ -5,7 +5,7 @@ const baseURL = "https://raw.githubusercontent.com/reavids101/risk-engineering-a
 const fileNames = [
   "Wellington Letter September 7, 2020.json",
   "Steam Explosions.json",
-  "US CSB 2020 Hurricane Season_Guidance for Chemical Plants During Extreme Weather.json",
+  "US CSB 2020 Hurricane Season_Guidance for Chemical Plants During Extreme Weather Events.json",
   // add more file names as needed
 ];
 
