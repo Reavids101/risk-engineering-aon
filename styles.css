@@ -35,10 +35,13 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 10px;
+    padding: 13px 25px;
     text-decoration: none;
-    border-radius: 20px;
     font-family: "San Francisco";
+}
+
+.navbar input:focus {
+    color: black;
 }
 
 .navbar h1 {
@@ -314,4 +317,16 @@ p.animated-text {
 
 .animate-slide-up {
     animation: slide-up 1s ease-in-out;
+  }
+
+  .article-title {
+    font-family: "San Francisco";
+  }
+
+  .article-snippet {
+    font-family: "San Francisco";
+  }
+
+  .article-read-more {
+    font-family: "San Francisco";
   }
