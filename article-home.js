@@ -55,7 +55,7 @@ function createArticleElement(article) {
   element.innerHTML = `
     <h2 class="article-title">${article.title}</h2>
     <p class="article-snippet">${article.snippet}</p>
-    <a class="article-read-more" href="${article.pdfUrl}">Read more</a>
+    <button class="view-btn" href="${article.pdfUrl}">Read more</a>
   `;
   return element;
 }
