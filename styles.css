@@ -296,3 +296,22 @@ p.animated-text {
     }
 
 }
+
+.article-previews {
+    padding: 20px;
+}
+
+.preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.article-preview {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.animate-slide-up {
+    animation: slide-up 1s ease-in-out;
+  }
