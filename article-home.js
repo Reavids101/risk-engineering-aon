@@ -36,16 +36,16 @@ Promise.all(fileNames.map((fileName) => fetch(`${baseURL}${fileName}`).then((res
   });
 
 function renderArticles(articles) {
-  const container = document.getElementById("articles");
+  const container = document.getElementsByClassName("article-preview");
   if (!container) {
     console.error("Error: Cannot find container element with ID 'articles'");
     return;
   }
-  container.innerHTML = "";
+  container[0].innerHTML = "";
 
   articles.forEach((article) => {
     const articleElement = createArticleElement(article);
-    container.appendChild(articleElement);
+    container[0].appendChild(articleElement);
   });
 }
 
