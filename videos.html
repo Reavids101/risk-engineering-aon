@@ -92,6 +92,28 @@
             console.error(xhr.statusText);
             };
             xhr.send();
+
+            function onPlayerReady(event) {
+            // Start playing the video
+            event.target.playVideo();
+            event.target.setPlaybackQuality('hd720');
+            event.target.addEventListener('onStateChange', onPlayerStateChange);
+            }
+
+            function onPlayerStateChange(event) {
+                if (event.data === YT.PlayerState.ENDED) {
+                event.target.pauseVideo();
+                };
+                if (event.data === YT.PlayerState.BUFFERING) {
+                var messageElement = document.getElementById('message');
+                messageElement.textContent = 'Buffering...';
+                messageElement.style.display = 'block';
+                } else {
+                var messageElement = document.getElementById('message');
+                messageElement.style.display = 'none';
+                };
+            }
+
             </script>
             <script src="https://www.youtube.com/iframe_api"></script>
     </section>
