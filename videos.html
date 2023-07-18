@@ -85,6 +85,18 @@
                             });
                         });
                     });
+
+                    var videos = videoData.map(video => {
+                        var video = {
+                            id: videoData.id,
+                            title: videoData.snippet.title,
+                            description: videoData.snippet.description,
+                            thumbnail: videoData.snippet.thumbnails.default.url,
+                            duration: formatDuration(videoData.contentDetails.duration)
+                        };
+                        
+                        return video;
+                    });
                 });
 
             function onYouTubeIframeAPIReady() {
