@@ -38,7 +38,7 @@
 
                 // Retrieve the video information from the server using AJAX
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'get_videos.php', true);
+                xhr.open('GET', 'videos.php', true);
                 xhr.onload = function() {
                 if (xhr.status === 200) {
                 var videos = JSON.parse(xhr.responseText);
