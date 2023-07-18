@@ -212,3 +212,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }) .catch(error => console.error('Error with Promise.all:', error));
 }) .catch(error => console.error('Error fetching data:', error));
 });
+
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING) {
+    // Video is playing
+  } else if (event.data == YT.PlayerState.PAUSED) {
+    // Video is paused
+  } else if (event.data == YT.PlayerState.ENDED) {
+    // Video has ended
+  }
+}

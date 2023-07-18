@@ -17,7 +17,83 @@
         <a href="videos.html">Videos</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items...">
+        <input type="text" id="searchBox" onkeyup="filterVideos()" placeholder="Search for items...">
+        <div id="player"></div>
+        <div id="video-feed"></div>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script>
+            var player;
+          
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: 'VIDEO_ID_HERE',
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+            }
+
+                // Retrieve the video information from the server using AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'get_videos.php', true);
+                xhr.onload = function() {
+                if (xhr.status === 200) {
+                var videos = JSON.parse(xhr.responseText);
+
+                // Create a video element for each video
+                var videoFeedElement = document.getElementById('video-feed');
+                for (var i = 0; i < videos.length; i++) {
+                var video = videos[i];
+
+                // Fetch video metadata using the YouTube API
+                gapi.client.youtube.videos.list({
+                    'id': video.id,
+                    'part': 'snippet'
+                }).then(function(response) {
+                    var videoData = response.result.items[0].snippet;
+
+                    var videoElement = document.createElement('video');
+                    videoElement.setAttribute('src', 'videos/' + video.id + '.mp4');
+                    videoElement.setAttribute('type', 'video/mp4');
+                    videoElement.setAttribute('controls', '');
+
+                    var titleElement = document.createElement('h2');
+                    titleElement.textContent = videoData.title;
+
+                    var descriptionElement = document.createElement('p');
+                    descriptionElement.textContent = videoData.description;
+
+                    var thumbnailElement = document.createElement('img');
+                    thumbnailElement.setAttribute('src', videoData.thumbnails.default.url);
+
+                    var durationElement = document.createElement('p');
+                    durationElement.textContent = video.duration;
+
+                    var videoContainerElement = document.createElement('div');
+                    videoContainerElement.appendChild(titleElement);
+                    videoContainerElement.appendChild(descriptionElement);
+                    videoContainerElement.appendChild(thumbnailElement);
+                    videoContainerElement.appendChild(durationElement);
+                    videoContainerElement.appendChild(videoElement);
+
+                    videoFeedElement.appendChild(videoContainerElement);
+                }, function(error) {
+                    console.error(error);
+                });
+                }
+            } else {
+                console.error(xhr.statusText);
+                }
+            };
+            xhr.onerror = function() {
+            console.error(xhr.statusText);
+            };
+            xhr.send();
+            </script>
+            <script src="https://www.youtube.com/iframe_api"></script>
     </section>
 
 </body>
