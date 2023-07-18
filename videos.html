@@ -25,67 +25,68 @@
 var videoFeedElement = document.getElementById('video-feed');
 
 // Get a list of all video files in the same directory as this webpage
-fetch('./', { mode: 'cors' })
-    .then(response => response.text())
-    .then(data => {
-        var parser = new DOMParser();
-        var html = parser.parseFromString(data, 'text/html');
-        var videos = Array.from(html.getElementsByTagName('a'))
-            .filter(link => /\.(mp4|avi|mov|MP4)$/.test(link.href))
-            .map(link => {
-                return {
-                    id: link.href.split('/').pop().split('.')[0],
-                    title: link.href.split('/').pop().split('.')[0],
-                    description: '',
-                    thumbnail: '',
-                    duration: ''
-                };
-            });
-        
-        var videosList = [];
-        var promises = videos.map(function(video) {
-            var videoElement = document.createElement('video');
-            videoElement.setAttribute('src', video.id + '.mp4');
-            videoElement.setAttribute('type', 'video/mp4');
-            videoElement.setAttribute('controls', '');
-
-            var titleElement = document.createElement('h2');
-            titleElement.textContent = video.title;
-
-            var descriptionElement = document.createElement('p');
-            descriptionElement.textContent = video.description;
-
-            var thumbnailElement = document.createElement('img');
-            thumbnailElement.setAttribute('src', video.thumbnail);
-
-            var durationElement = document.createElement('p');
-            durationElement.textContent = formatDuration(video.duration);
-
-            var videoContainerElement = document.createElement('div');
-            videoContainerElement.appendChild(titleElement);
-            videoContainerElement.appendChild(descriptionElement);
-            videoContainerElement.appendChild(thumbnailElement);
-            videoContainerElement.appendChild(durationElement);
-            videoContainerElement.appendChild(videoElement);
-
-            videoFeedElement.appendChild(videoContainerElement);
-
-            var videoItem = {
-                id: video.id,
-                title: video.title,
-                description: video.description,
-                thumbnail: video.thumbnail,
-                duration: formatDuration(video.duration)
+var xhr = new XMLHttpRequest();
+xhr.open('GET', './', true);
+xhr.responseType = 'document';
+xhr.onload = function() {
+    var html = xhr.response;
+    var videos = Array.from(html.getElementsByTagName('a'))
+        .filter(link => /\.(mp4|avi|mov|MP4)$/.test(link.href))
+        .map(link => {
+            return {
+                id: link.href.split('/').pop().split('.')[0],
+                title: link.href.split('/').pop().split('.')[0],
+                description: '',
+                thumbnail: '',
+                duration: ''
             };
+        });
+    
+    var videosList = [];
+    var promises = videos.map(function(video) {
+        var videoElement = document.createElement('video');
+        videoElement.setAttribute('src', video.id + '.mp4');
+        videoElement.setAttribute('type', 'video/mp4');
+        videoElement.setAttribute('controls', '');
 
-            videosList.push(videoItem);
-        });
-        Promise.all(promises).then(function() {
-            console.log('videos:', videos);
-            console.log('videosList:', videosList);
-            onVideoPlayerReady(videosList);
-        });
+        var titleElement = document.createElement('h2');
+        titleElement.textContent = video.title;
+
+        var descriptionElement = document.createElement('p');
+        descriptionElement.textContent = video.description;
+
+        var thumbnailElement = document.createElement('img');
+        thumbnailElement.setAttribute('src', video.thumbnail);
+
+        var durationElement = document.createElement('p');
+        durationElement.textContent = formatDuration(video.duration);
+
+        var videoContainerElement = document.createElement('div');
+        videoContainerElement.appendChild(titleElement);
+        videoContainerElement.appendChild(descriptionElement);
+        videoContainerElement.appendChild(thumbnailElement);
+        videoContainerElement.appendChild(durationElement);
+        videoContainerElement.appendChild(videoElement);
+
+        videoFeedElement.appendChild(videoContainerElement);
+
+        var videoItem = {
+            id: video.id,
+            title: video.title,
+            description: video.description,
+            thumbnail: video.thumbnail,
+            duration: formatDuration(video.duration)
+        };
+
+        videosList.push(videoItem);
     });
+    Promise.all(promises).then(function() {
+        console.log('videos:', videos);
+        console.log('videosList:', videosList);
+        onVideoPlayerReady(videosList);
+    });
+};
+xhr.send();
 
 function onVideoPlayerReady(videosList) {
     if (videosList && videosList.length > 0) {
