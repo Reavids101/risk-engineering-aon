@@ -6,7 +6,7 @@ $videos = array();
 if ($handle = opendir($dir)) {
     while (false !== ($file = readdir($handle))) {
         // Check if the file is a video file
-        if (preg_match('/\.(mp4|avi|mov)$/', $file)) {
+        if (preg_match('/\.(mp4|avi|mov|MP4)$/', $file)) {
             // Get the file path and video ID
             $filePath = $dir . '/' . $file;
             $videoId = pathinfo($file, PATHINFO_FILENAME);
