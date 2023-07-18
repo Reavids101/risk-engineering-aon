@@ -1,4 +1,4 @@
-
+<?php
 $dir = 'risk-engineering-aon/'; // Directory containing the raw video files
 $videos = array();
 
@@ -31,3 +31,4 @@ if ($handle = opendir($dir)) {
 
 // Output the video information as JSON
 echo json_encode($videos);
+?>
