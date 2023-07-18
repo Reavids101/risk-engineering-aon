@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Define a function to filter and sort the articles based on the user's input
       function filterArticles() {
+        console.log('filterArticles called');
         const input = searchBox.value.trim().toUpperCase();
         const articlePreviews = container.getElementsByClassName("article-preview");
 
