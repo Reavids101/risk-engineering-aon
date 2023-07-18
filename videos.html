@@ -106,11 +106,18 @@
                 };
                 if (event.data === YT.PlayerState.BUFFERING) {
                 var messageElement = document.getElementById('message');
+
+                if (messageElement) {
                 messageElement.textContent = 'Buffering...';
                 messageElement.style.display = 'block';
+                }
+                
                 } else {
                 var messageElement = document.getElementById('message');
-                messageElement.style.display = 'none';
+                if (messageElement) {
+                    messageElement.style.display = 'none';
+                }
+                
                 };
             }
 
