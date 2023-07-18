@@ -47,8 +47,9 @@
                         gapi.client.init({
                             apiKey: 'AIzaSyDwL1VUxwHvEl-NcCnmxh2WHFAV11HueL0'
                         }).then(function() {
-                            videos.forEach(function(video) {
-                                gapi.client.youtube.videos.list({
+                            var videosList = [];
+                            var promises = videos.map(function(video) {
+                                return gapi.client.youtube.videos.list({
                                     'id': video.id,
                                     'part': 'snippet,contentDetails'
                                 }).then(function(response) {
@@ -79,35 +80,35 @@
                                     videoContainerElement.appendChild(videoElement);
 
                                     videoFeedElement.appendChild(videoContainerElement);
-                                }, function(error) {
+
+                                    var videoItem = {
+                                    id: video.id,
+                                    title: video.title,
+                                    description: video.description,
+                                    thumbnail: video.thumbnail,
+                                    duration: formatDuration(video.duration)
+                                    };
+                                    videosList.push(videoItem);
+                                    }, function(error) {
                                     console.error(error);
                                 });
-                            });
+                            })
+                            Promise.all(promises).then(function() {
+                                console.log(videos);
+                                console.log(videosList);
+                                onYouTubeIframeAPIReady(videosList); // Pass videosList as an argument
                         });
                     });
-
-                    var videos = videoData.map(video => {
-                        var video = {
-                            id: videoData.id,
-                            title: videoData.snippet.title,
-                            description: videoData.snippet.description,
-                            thumbnail: videoData.snippet.thumbnails.default.url,
-                            duration: formatDuration(videoData.contentDetails.duration)
-                        };
-                        
-                        return video;
-                    });
-
                 });
+            });
+            
+            function onYouTubeIframeAPIReady(videosList) {
 
-
-            function onYouTubeIframeAPIReady() {
-
-                if (videos && videos.length > 0) {
+                if (videosList && videosList.length > 0) {
                     player = new YT.Player('player', {
                     height: '360',
                     width: '640',
-                    videoId: videos[0].id,
+                    videoId: videosList[0].id,
                     events: {
                         'onReady': onPlayerReady,
                         'onStateChange': onPlayerStateChange
