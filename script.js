@@ -208,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // Add the article preview element to the container
             container.appendChild(articlePreview);
           }
-        })
-        .catch(error => console.error('Error fetching articles:', error));
+        }) .catch(error => console.error('Error with Promise.all:', error));
 }) .catch(error => console.error('Error fetching data:', error));
 });
