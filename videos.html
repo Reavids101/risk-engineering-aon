@@ -30,7 +30,8 @@ xhr.open('GET', './', true);
 xhr.responseType = 'document';
 xhr.onload = function() {
     var html = xhr.response;
-    var videos = Array.from(html.getElementsByTagName('a'))
+    var videos = Array.from(document.querySelectorAll('a[href$=".mp4"]')).map(link => link.getAttribute('href'))
+    
         .filter(link => /\.(mp4|avi|mov|MP4)$/.test(link.href))
         .map(link => {
             return {
@@ -40,6 +41,8 @@ xhr.onload = function() {
                 thumbnail: '',
                 duration: ''
             };
+
+            console.log('videos:', videos);
         });
     
     var videosList = [];
