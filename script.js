@@ -85,68 +85,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("articles");
   const suggestions = document.getElementById("suggestions");
 
-  // Define an array of file names for the articles data
-  const files = ["Wellington Letter September 7, 2020.json",
-  "Steam Explosions.json",
-  "US CSB 2020 Hurricane Season_Guidance for Chemical Plants During Extreme Weather Events.json",
-  "AIM Learning Series 2.0.json",
-  "alternative-heating.json",
-  "Aon Hurricane Season Preparation and Response 2020.json",
-  "NFPA 70B Checklist NATURAL DISASTER ELECTRICAL EQUIPMENT.json",
-  "Management Of Change MOC.json",
-  "icheme-lessons-learned-database.json",
-  "IBHS-Small Hail-Big Problems-New Approach 20230419.json",
-  "Hazards of High Oxygen Concentration_English.json",
-  "Get Help.lnk.json",
-  "Freezing-Weather-Last-Minute-Checklist_IBHS.json",
-  "Freezing-Bursting-Pipes_IBHS.json",
-  "FreezeTips.json",
-  "Combustible Mists_English.json",
-  "Automatic vs Manual control.json",
-  "202201beaconenglish-PID.json"];
+  const pattern = /\.json$/; // Match all files that end with .json
+  const url = '.'; // The URL of the current directory
+  const articles = [];
 
-  // Fetch the contents of all the files and process the data
-  Promise.all(files.map(file => fetch(file)))
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(data => {
-      // Flatten the arrays of articles into a single array
-      const articles = data.flat();
+  fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      const parser = new DOMParser();
+      const html = parser.parseFromString(text, 'text/html');
+      const links = html.querySelectorAll('a');
+      for (let i = 0; i < links.length; i++) {
+        const link = links[i];
+        const href = link.getAttribute('href');
+        if (pattern.test(href)) {
+          fetch(href)
+            .then(response => response.json())
+            .then(data => {
+              // Add the file name as a property to each article object
+              data.fileName = href.match(/\/?([^/]+)$/)[1];
 
-      // Loop through the array of articles and create an article preview element for each one
-      for (let i = 0; i < articles.length; i++) {
-        const article = articles[i];
-
-        // Create the article preview element
-        const articlePreview = document.createElement("div");
-        articlePreview.className = "article-preview";
-        articlePreview.setAttribute("data-search", article.searchTerms.join(" "));
-
-        // Create the title element
-        const titleElem = document.createElement("h2");
-        titleElem.textContent = article.title;
-        articlePreview.appendChild(titleElem);
-
-        // Create the author element
-        const authorElem = document.createElement("div");
-        authorElem.className = "author";
-        authorElem.textContent = article.author;
-        articlePreview.appendChild(authorElem);
-
-        // Create the snippet element
-        const snippetElem = document.createElement("div");
-        snippetElem.className = "snippet";
-        snippetElem.textContent = article.snippet;
-        articlePreview.appendChild(snippetElem);
-
-        // Create the view button
-        const viewBtn = document.createElement("a");
-        viewBtn.className = "view-btn";
-        viewBtn.href = "#";
-        viewBtn.textContent = "View Article";
-        articlePreview.appendChild(viewBtn);
-
-        // Append the article preview element to the container
-        container.appendChild(articlePreview);
+              articles.push(data);
+              console.log(`Fetched article from ${href}`);
+            })
+            .catch(error => console.error(`Error fetching article from ${href}:`, error));
+        }
       }
 
       // Add an event listener to the search input to filter and sort the articles based on the user's input
@@ -162,56 +125,90 @@ document.addEventListener("DOMContentLoaded", () => {
           const articlePreview = articlePreviews[i];
           const searchTerms = articlePreview.getAttribute("data-search").toUpperCase();
           const relevanceScore = getRelevanceScore(input, searchTerms);
-          articlePreview.style.display = relevanceScore > 0 ? "block" : "none";
-          articlePreview.setAttribute("data-relevance", relevanceScore);
+          articlePreview.style.display = relevanceScore > 0 ?"block" : "none";
+          articlePreview.style.order = relevanceScore > 0 ? -relevanceScore : 0;
         }
 
-        // Sort the article preview elements based on their relevance score
-        const sortedArticlePreviews = Array.from(articlePreviews).sort((a, b) => {
-          const aRelevance = parseInt(a.getAttribute("data-relevance"));
-          const bRelevance = parseInt(b.getAttribute("data-relevance"));
-          return bRelevance - aRelevance;
-        });
-
-        // Remove all existing article preview elements from the container
-        while (container.firstChild) {
-          container.removeChild(container.lastChild);
-        }
-
-        // Append the sorted article preview elements to the container
-        for (let i = 0; i < sortedArticlePreviews.length; i++) {
-          const articlePreview = sortedArticlePreviews[i];
-          container.appendChild(articlePreview);
-        }
-
-        // Generate a list of suggestions based on the available search terms
-        const searchTerms = container.getAttribute("data-search");
-        const matchingTerms = searchTerms ? searchTerms.split(" ").filter(term => term.toUpperCase().indexOf(input) > -1) : [];
-
-        suggestions.innerHTML = "";
-        matchingTerms.forEach(term => {
-          const option = document.createElement("option");
-          option.value = term;
-          suggestions.appendChild(option);
-        });
+        // Display the suggestions based on the user's input
+        displaySuggestions(input);
       }
 
-      // Define a function to calculate the relevance score for an article preview element
-      function getRelevanceScore(query, searchTerms) {
-        const queryWords = query.split(" ");
-        const searchTermWords = searchTerms.split(" ");
+      // Define a function to calculate the relevance score of an article based on the user's input and its search terms
+      function getRelevanceScore(input, searchTerms) {
         let score = 0;
+        const inputWords = input.split(" ");
+        const searchWords = searchTerms.split(" ");
 
-        for (let i = 0; i < queryWords.length; i++) {
-          for (let j = 0; j < searchTermWords.length; j++) {
-            if (searchTermWords[j].startsWith(queryWords[i])) {
-              score += queryWords[i].length;
+        // Loop through all the input words and search words and calculate the relevance score
+        for (let i = 0; i < inputWords.length; i++) {
+          const inputWord = inputWords[i];
+
+          for (let j = 0; j < searchWords.length; j++) {
+            const searchWord = searchWords[j];
+
+            if (searchWord.startsWith(inputWord)) {
+              score += inputWord.length;
             }
           }
         }
 
         return score;
       }
-    })
-    .catch(error => console.error(error));
-  });
+
+      // Define a function to display the suggestions based on the user's input
+      function displaySuggestions(input) {
+        suggestions.innerHTML = "";
+
+        if (input.length > 0) {
+          const matchingArticles = articles.filter(article =>
+            article.searchTerms.some(searchTerm =>
+              searchTerm.toUpperCase().startsWith(input)
+            )
+          );
+
+          const matchingSearchTerms = matchingArticles.flatMap(article =>
+            article.searchTerms.filter(searchTerm =>
+              searchTerm.toUpperCase().startsWith(input)
+            )
+          );
+
+          const uniqueMatchingSearchTerms = [...new Set(matchingSearchTerms)];
+
+          for (let i = 0; i < uniqueMatchingSearchTerms.length; i++) {
+            const suggestion = document.createElement("div");
+            suggestion.className = "suggestion";
+            suggestion.textContent = uniqueMatchingSearchTerms[i];
+            suggestions.appendChild(suggestion);
+          }
+        }
+      }
+
+      // Wait for all the articles to be fetched, then create an article preview element for each one
+      Promise.all(articles)
+        .then(data => {
+          // Flatten the arrays of articles into a single array
+          const articles = data.flat();
+
+          // Loop through the array of articles and create an article preview element for each one
+          for (let i = 0; i < articles.length; i++) {
+            const article = articles[i];
+
+            // Create the article preview element
+            const articlePreview = document.createElement("div");
+            articlePreview.className = "article-preview";
+            articlePreview.innerHTML = `
+              <h2>${article.title}</h2>
+              <p>${article.snippet}</p>
+              <p>${article.author}</p>
+              <button class="view-btn" href="${article.pdfUrl}">Read more</a>
+            `;
+            // Add a data-search attribute to the article preview element to store the search terms
+            articlePreview.setAttribute("data-search", `${article.title} ${article.snippet} ${article.pdfUrl}`.toUpperCase());
+
+            // Add the article preview element to the container
+            container.appendChild(articlePreview);
+          }
+        })
+        .catch(error => console.error('Error fetching articles:', error));
+}) .catch(error => console.error('Error fetching data:', error));
+});
