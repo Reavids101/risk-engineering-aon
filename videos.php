@@ -1,5 +1,5 @@
 
-$dir = '/risk-engineering-aon/'; // Directory containing the raw video files
+$dir = 'risk-engineering-aon/'; // Directory containing the raw video files
 $videos = array();
 
 // Open the directory and loop through its contents
