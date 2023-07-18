@@ -23,8 +23,6 @@
         <script>
             var player;
             var videoFeedElement = document.getElementById('video-feed');
-
-            var videoData = [];
             
             // Get a list of all video files in the same directory as this webpage
             fetch('./', { mode: 'cors' })
@@ -87,9 +85,8 @@
                             });
                         });
                     });
-                });
 
-                var videos = videoData.map(video => {
+                    var videos = videoData.map(video => {
                         var video = {
                             id: videoData.id,
                             title: videoData.snippet.title,
@@ -100,6 +97,9 @@
                         
                         return video;
                     });
+
+                });
+
 
             function onYouTubeIframeAPIReady() {
                 player = new YT.Player('player', {
@@ -169,7 +169,7 @@
             }
         </script>
         
-        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="https://www.youtube.com/iframe_api" onload="onYouTubeIframeAPIReady()"></script>
     </section>
 </body>
 <footer>
