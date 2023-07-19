@@ -513,4 +513,12 @@ p.animated-text {
     .navbar {
         display: none;
     }
+
+    .navbar1 img {
+        float: left;
+        display: block;
+        max-width: 5%;
+        height: auto;
+        padding: 14px 20px;
+    }
   }
