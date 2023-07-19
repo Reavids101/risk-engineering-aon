@@ -413,11 +413,16 @@ p.animated-text {
   }
   
   .icon {
+    float: right;
     font-size: 30px;
     cursor: pointer;
     color: white;
     padding: 14px 20px;
-    margin: 0;
+    margin-right: -80px;
+  }
+
+  .search-icon {
+    float: right;
   }
   
   @media (max-width: 1000px) {
@@ -432,7 +437,7 @@ p.animated-text {
       }
   
     .navbar1 h1 {
-      float: center;
+      justify-content: center;
       display: block;
       color: white;
       text-align: center;
@@ -443,6 +448,10 @@ p.animated-text {
   
     .menu.show {
       display: flex;
+    }
+
+    .icon {
+        float: right;
     }
   
     .search-bar-container.show {
@@ -462,6 +471,7 @@ p.animated-text {
     }
   
     .search-icon {
+        float: right;
         font-size: 30px;
         color: white;
         padding: 14px 20px;
@@ -536,4 +546,7 @@ p.animated-text {
       cursor: pointer;
       z-index: 1;
     }
+  }
+  .clear {
+    clear: both;
   }
