@@ -460,9 +460,10 @@ p.animated-text {
     }
   
     .search-icon {
-      float: right;
-      font-size: 20px;
-      cursor: pointer;
+      font-size: 30px;
+        color: white;
+        padding: 14px 20px;
+        margin-right: 20px;
     }
   
     .search-bar-container {
