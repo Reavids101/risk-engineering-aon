@@ -339,7 +339,7 @@ p.animated-text {
     background-image: url("/risk-engineering-aon/indexintroimg.jpg");
     height: 700px;
     overflow-x: hidden;
-    background-color: rgba(0, 0, 0, 0.99);
+    background-color: rgba(0, 0, 0, 0.95);
     mix-blend-mode: multiply;
 
 }
@@ -397,7 +397,11 @@ p.animated-text {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100px;
+    width: 100%;
+  }
+  
+  .menu.show {
+    display: flex;
   }
   
   .menu a {
@@ -405,120 +409,128 @@ p.animated-text {
     text-decoration: none;
     padding: 10px;
     font-family: "San Francisco";
-  }
-  
-  .search-icon {
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .search-bar-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-  }
-  
-  .search-bar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-  }
-  
-  .search-bar form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    z-index: 1;
     text-align: center;
   }
   
-  .search-bar input[type="text"] {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-family: "San Francisco";
-    z-index: 1;
-  }
-  
-  .search-bar button[type="submit"] {
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    padding: 10px;
-    cursor: pointer;
-    font-family: "San Francisco";
-    z-index: 1;
-  }
-  
-  .close-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  .icon {
+    float: left;
     font-size: 20px;
-    color: #333;
     cursor: pointer;
-    z-index: 1;
   }
   
-
-@media (max-width: 1000px) {
+  @media (max-width: 1000px) {
     .navbar1 {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         background-color: #333;
         position: sticky;
         top: 0;
         z-index: 100;
-    }
-
-    .navbar1 h1 {
-        float: center;
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 20px;
-        text-decoration: none;
-        font-family: "San Francisco";
-    }
-
-    .menu.show.show {
-        display: flex;
-    }
-    
-    .search-bar-container.show {
-        display: flex;
       }
-
-    .navbar {
-        display: none;
+  
+    .navbar1 h1 {
+      float: center;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-family: "San Francisco";
     }
-
+  
+    .menu.show {
+      display: flex;
+    }
+  
+    .search-bar-container.show {
+      display: flex;
+    }
+  
+    .navbar {
+      display: none;
+    }
+  
     .navbar1 img {
-        float: left;
-        display: block;
-        max-width: 5%;
-        height: auto;
-        padding: 14px 20px;
+      float: left;
+      display: block;
+      max-width: 5%;
+      height: auto;
+      padding: 14px 20px;
+    }
+  
+    .search-icon {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  
+    .search-bar-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+    }
+  
+    .search-bar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+    }
+  
+    .search-bar form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+  
+    .search-bar input[type="text"] {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-family: "San Francisco";
+      z-index: 1;
+    }
+  
+    .search-bar button[type="submit"] {
+      border: none;
+      outline: none;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px;
+      cursor: pointer;
+      font-family: "San Francisco";
+      z-index: 1;
+    }
+  
+    .close-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+      z-index: 1;
     }
   }
