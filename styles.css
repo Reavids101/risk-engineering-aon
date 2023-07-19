@@ -338,7 +338,7 @@ p.animated-text {
     text-align: center;
     background-image: url("/risk-engineering-aon/_28x_x1grpxqf0_559415174.jpg");
     height: 1000px;
-    mix-blend-mode: multiply;
+    overflow-x: hidden;
 }
 
 .index-intro p {
@@ -354,13 +354,30 @@ p.animated-text {
 }
 
 .index-intro h2 {
-    text-align: center;
-    text-decoration: none;
+    display: block;
+    justify-content: center;
     font-family: "San Francisco";
     font-size: 45px;
     padding-left: 100px;
     padding-right: 100px;
     color: black;
-    z-index: 2;
+    overflow: hidden;
+    white-space: nowrap;
+    width:0;
+    animation: typing;
+    animation-duration: 3s;
+    animation-timing-function: steps(30, end);
+    animation-fill-mode: forwards;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    } to {
+        width: 100%
+    }
 }
