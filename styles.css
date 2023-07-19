@@ -349,10 +349,10 @@ p.animated-text {
     text-decoration: none;
     font-family: "San Francisco";
     font-size: 30px;
-    padding-top: 300px;
+    padding-top: 250px;
     padding-left: 100px;
     padding-right: 100px;
-    color: black;
+    color: white;
     z-index: 1;
 }
 
@@ -363,7 +363,7 @@ p.animated-text {
     font-size: 45px;
     padding-left: 100px;
     padding-right: 100px;
-    color: black;
+    color: white;
     overflow: hidden;
     white-space: nowrap;
     width:0;
