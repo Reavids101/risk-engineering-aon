@@ -226,3 +226,13 @@ function onPlayerStateChange(event) {
     // Video has ended
   }
 }
+
+function toggleMenu() {
+  var menu = document.querySelector('.menu');
+  menu.classList.toggle('show');
+}
+
+function toggleSearch() {
+  var searchBarContainer = document.querySelector('.search-bar-container');
+  searchBarContainer.classList.toggle('show');
+}
