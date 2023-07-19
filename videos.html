@@ -21,29 +21,58 @@
         background-color: white;
         }
 
-        .video {
+        #video-feed h2 {
+            font-family: "San Francisco";
+        }
+
+video {
   display: inline-block;
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
   margin: 0;
   padding: 10px;
   box-sizing: border-box;
   text-align: center;
 }
 
-.video video {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 5px;
+@media (max-width: 768px) {
+  video {
+    width: 50%;
+    display: inline-block;
+  }
+
+  #player {
+    height: 300px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #video-feed {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
-.video h2 {
-  margin-top: 0;
-}
+@media (max-width: 480px) {
+  video {
+    width: 100%;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
 
-.video p {
-  margin-bottom: 0;
+  #player {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #video-feed {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
     </style>
     <link rel="stylesheet" type="text/css" href="styles.css">
@@ -71,12 +100,10 @@ var videos = [
     {
         id: 'Grenfell Tower panels cladding fire tests',
         title: 'Grenfell Tower panels cladding fire tests',
-        duration: 'PT2M30S'  // Example duration in ISO 8601 format
     },
     {
         id: 'Perfume fire_static charges',
         title: 'Perfume fire_static charges',
-        duration: 'PT3M45S'  // Example duration in ISO 8601 format
     },
     // Add more video objects as needed
 ];
@@ -90,12 +117,8 @@ var promises = videos.map(function(video) {
     var titleElement = document.createElement('h2');
     titleElement.textContent = video.title;
 
-    var durationElement = document.createElement('p');
-    durationElement.textContent = formatDuration(video.duration);
-
     var videoContainerElement = document.createElement('div');
     videoContainerElement.appendChild(titleElement);
-    videoContainerElement.appendChild(durationElement);
     videoContainerElement.appendChild(videoElement);
 
     videoFeedElement.appendChild(videoContainerElement);
