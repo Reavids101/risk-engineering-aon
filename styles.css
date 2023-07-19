@@ -331,3 +331,36 @@ p.animated-text {
   .article-read-more {
     font-family: "San Francisco";
   }
+
+  .index-intro {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    background-image: url("/risk-engineering-aon/_28x_x1grpxqf0_559415174.jpg");
+    height: 1000px;
+    mix-blend-mode: multiply;
+}
+
+.index-intro p {
+    text-align: center;
+    text-decoration: none;
+    font-family: "San Francisco";
+    font-size: 30px;
+    padding-top: 500px;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: black;
+    z-index: 1;
+}
+
+.index-intro h2 {
+    text-align: center;
+    text-decoration: none;
+    font-family: "San Francisco";
+    font-size: 45px;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: black;
+    z-index: 2;
+    
+}
