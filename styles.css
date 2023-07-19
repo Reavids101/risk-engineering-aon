@@ -385,3 +385,42 @@ p.animated-text {
         width: 100%
     }
 }
+
+.navbar1 {
+    display: none;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100px;
+  }
+  
+  .menu a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    font-family: "San Francisco";
+  }
+
+@media (max-width: 768px) {
+    .navbar1 {
+        display: block;
+        background-color: #333;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .menu.show.show {
+        display: flex;
+    }    
+
+    .navbar {
+        display: none;
+    }
+  }
