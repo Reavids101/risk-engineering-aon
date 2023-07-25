@@ -388,6 +388,7 @@ p.animated-text {
 
 .navbar1 {
     display: none;
+    z-index: 1;
 }
 
 .menu {
@@ -398,7 +399,6 @@ p.animated-text {
     top: 100%;
     left: 0;
     width: 100%;
-    z-index: 1;
   }
   
   .menu a {
@@ -470,7 +470,6 @@ p.animated-text {
       width: 100%;
       height: 100%;
       background-color: white;
-      z-index: 1;
     }
   
     .search-bar {
