@@ -55,8 +55,37 @@ function createArticleElement(article) {
   element.innerHTML = `
     <h2 class="article-title">${article.title}</h2>
     <p class="article-snippet">${article.snippet}</p>
-    <button class="view-btn" href="${article.pdfUrl}">Read more</a>
+    <button class="view-btn">Read more</button>
   `;
+
+  // Add a click event listener to the "Read more" button
+  const viewBtn = element.querySelector(".view-btn");
+  viewBtn.addEventListener("click", () => {
+    // Load the PDF file using PDF.js
+    const pdfUrl = article.pdfUrl;
+    const pdfjsLib = window["pdfjs-dist/build/pdf"];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+
+    // Render the PDF file in a new tab
+    loadingTask.promise.then((pdf) => {
+      pdf.getPage(1).then((page) => {
+        const canvas = document.createElement("canvas");
+        const viewport = page.getViewport({ scale: 1.0 });
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const canvasContext = canvas.getContext("2d");
+        const renderTask = page.render({ canvasContext, viewport });
+        renderTask.promise.then(() => {
+          const pdfWindow = window.open("");
+          pdfWindow.document.write("<html><head><title>PDF Viewer</title></head><body>");
+          pdfWindow.document.write(`<embed width="100%" height="100%" name="plugin" src="${pdfUrl}" type="application/pdf">`);
+          pdfWindow.document.write("</body></html>");
+        });
+      });
+    });
+  });
+
   return element;
 }
 });
