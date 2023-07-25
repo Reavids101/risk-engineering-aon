@@ -469,8 +469,7 @@ p.animated-text {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
+      background-color: white;
     }
   
     .search-bar {
@@ -486,7 +485,6 @@ p.animated-text {
       width: 100%;
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      z-index: 9999;
     }
   
     .search-bar form {
@@ -494,7 +492,6 @@ p.animated-text {
       flex-direction: column;
       align-items: center;
       width: 100%;
-      z-index: 1;
       text-align: center;
     }
   
@@ -506,7 +503,6 @@ p.animated-text {
       padding: 10px;
       margin-bottom: 10px;
       font-family: "San Francisco";
-      z-index: 1;
     }
   
     .search-bar button[type="submit"] {
@@ -518,7 +514,6 @@ p.animated-text {
       padding: 10px;
       cursor: pointer;
       font-family: "San Francisco";
-      z-index: 1;
     }
   
     .close-icon {
@@ -528,6 +523,5 @@ p.animated-text {
       font-size: 20px;
       color: #333;
       cursor: pointer;
-      z-index: 1;
     }
   }
