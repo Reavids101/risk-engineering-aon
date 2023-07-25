@@ -414,7 +414,7 @@ p.animated-text {
   
   .icon {
     float: right;
-    font-size: 30px;
+    font-size: 45px;
     cursor: pointer;
     color: white;
     padding: 14px 20px;
@@ -423,6 +423,7 @@ p.animated-text {
 
   .search-icon {
     float: right;
+    font-size: 45px;
   }
   
   @media (max-width: 1000px) {
