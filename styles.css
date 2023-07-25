@@ -398,10 +398,11 @@ p.animated-text {
     top: 100%;
     left: 0;
     width: 100%;
+    z-index: 10000;
   }
   
   .menu a {
-    color: white;
+    color: #333;
     text-decoration: none;
     padding: 10px;
     font-family: "San Francisco";
