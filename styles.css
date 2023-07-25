@@ -400,16 +400,13 @@ p.animated-text {
     width: 100%;
   }
   
-  .menu.show {
-    display: flex;
-  }
-  
   .menu a {
-    color: #333;
+    color: white;
     text-decoration: none;
     padding: 10px;
     font-family: "San Francisco";
     text-align: center;
+    font-size: 25px;
   }
   
   .icon {
@@ -532,7 +529,4 @@ p.animated-text {
       cursor: pointer;
       z-index: 1;
     }
-  }
-  .clear {
-    clear: both;
   }
