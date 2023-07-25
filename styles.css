@@ -428,21 +428,17 @@ p.animated-text {
   @media (max-width: 1000px) {
     .navbar1 {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
         background-color: #333;
         position: sticky;
-        top: 0;
-        z-index: 100;
+        padding: 10px;
       }
   
     .navbar1 h1 {
-      justify-content: center;
-      display: block;
       color: white;
-      text-align: center;
-      padding: 14px 20px;
-      text-decoration: none;
+      margin: 0;
       font-family: "San Francisco";
     }
   
@@ -451,7 +447,8 @@ p.animated-text {
     }
 
     .icon {
-        float: right;
+        display: inline-block;
+        margin-left: 80px;
     }
   
     .search-bar-container.show {
@@ -471,11 +468,10 @@ p.animated-text {
     }
   
     .search-icon {
-        float: right;
         font-size: 30px;
         color: white;
-        padding: 14px 20px;
-        margin: 0;
+        display: inline-block;
+        margin-left: auto;
     }
   
     .search-bar-container {
