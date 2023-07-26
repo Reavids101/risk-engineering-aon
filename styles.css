@@ -534,9 +534,10 @@ p.animated-text {
   .index-options {
     width: 300px;
     border: none;
-    background-color: #04AA6D;
+    background-color: black;
     padding: 14px 28px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
+    color: white;
   }
