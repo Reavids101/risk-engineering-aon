@@ -67,7 +67,7 @@ video {
         <a href="videos.html">Videos</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <input type="text" id="searchBox" onkeyup="filterVideos()" placeholder="Search for items...">
+        <input type="text" id="searchBox1" placeholder="Search for items...">
         </section>
         <div class="navbar1">
             <img src="/risk-engineering-aon/AON.svg">
@@ -94,92 +94,8 @@ video {
         <div id="player"></div>
         <div id="video-feed"></div>
         <script src="https://apis.google.com/js/api.js"></script>
-        <script>
-            var player;
-var videoFeedElement = document.getElementById('video-feed');
-
-// Define your video objects manually
-var videos = [
-    {
-        id: 'Grenfell Tower panels cladding fire tests',
-        title: 'Grenfell Tower panels cladding fire tests',
-    },
-    {
-        id: 'Perfume fire_static charges',
-        title: 'Perfume fire_static charges',
-    },
-    // Add more video objects as needed
-];
-
-var promises = videos.map(function(video) {
-    var videoElement = document.createElement('video');
-    videoElement.setAttribute('src', video.id + '.mp4');
-    videoElement.setAttribute('type', 'video/mp4');
-    videoElement.setAttribute('controls', '');
-
-    var titleElement = document.createElement('h2');
-    titleElement.textContent = video.title;
-
-    var videoContainerElement = document.createElement('div');
-    videoContainerElement.appendChild(titleElement);
-    videoContainerElement.appendChild(videoElement);
-
-    videoFeedElement.appendChild(videoContainerElement);
-});
-
-Promise.all(promises).then(function() {
-    console.log('videos:', videos);
-    onVideoPlayerReady(videos);
-});
-
-function onVideoPlayerReady(videosList) {
-    if (videosList && videosList.length > 0) {
-        player = videoFeedElement.children[0].getElementsByTagName('video')[0];
-        player.addEventListener('ended', onVideoPlayerEnded);
-    } else {
-        console.error('No videos found');
-    }
-}
-
-function onVideoPlayerEnded(event) {
-    // Play the next video
-    var nextVideo = event.target.parentNode.nextElementSibling;
-    if (nextVideo) {
-        nextVideo.getElementsByTagName('video')[0].play();
-    }
-}
-
-// Format video duration from ISO 8601 format to hh:mm:ss
-function formatDuration(duration) {
-    var match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-
-    var hours = (parseInt(match[1]) || 0);
-    var minutes = (parseInt(match[2]) || 0);
-    var seconds = (parseInt(match[3]) || 0);
-
-    var totalSeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
-
-    var formattedDuration = '';
-
-    if (hours > 0) {
-        formattedDuration += hours + ':';
-    }
-
-    if (minutes < 10) {
-        formattedDuration += '0';
-    }
-    formattedDuration += minutes + ':';
-
-    if (seconds < 10) {
-        formattedDuration += '0';
-    }
-    formattedDuration += seconds;
-
-    return formattedDuration;
-}
-
-        </script>
         <script src="script.js"></script>
+        <script src="video-home.js"></script>
 </body>
 <footer>
     <!-- Add your footer content here -->
