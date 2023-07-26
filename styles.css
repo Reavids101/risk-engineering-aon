@@ -301,9 +301,6 @@ p.animated-text {
 
 }
 
-.article-previews {
-    padding: 20px;
-}
 
 .preview-cards {
     display: grid;
@@ -314,6 +311,14 @@ p.animated-text {
 .article-preview {
     background-color: #f0f0f0;
     padding: 20px;
+}
+
+.article-preview:not(.hidden) {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }
 
 .animate-slide-up {

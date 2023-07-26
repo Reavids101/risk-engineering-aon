@@ -52,10 +52,11 @@ function renderArticles(articles) {
 function createArticleElement(article) {
   const element = document.createElement("div");
   element.classList.add("article");
+  element.setAttribute("data-search", `${article.title}\n${article.snippet}`);
   element.innerHTML = `
     <h2 class="article-title">${article.title}</h2>
     <p class="article-snippet">${article.snippet}</p>
-    <button class="view-btn">Read more</button>
+    <button class="view-btn" data-href="${article.pdfUrl}">Read more</button>
   `;
 
   // Add a click event listener to the "Read more" button
@@ -89,3 +90,4 @@ function createArticleElement(article) {
   return element;
 }
 });
+
