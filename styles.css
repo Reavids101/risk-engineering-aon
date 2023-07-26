@@ -539,5 +539,8 @@ p.animated-text {
     font-size: 16px;
     cursor: pointer;
     text-align: center;
+  }
+
+  .index-options a {
     color: white;
   }
