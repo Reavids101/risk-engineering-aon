@@ -277,13 +277,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const videos = document.querySelectorAll("#video-feed video");
       videos.forEach((video) => {
         const videoContainer = video.parentElement;
-        const videoData = videoContainer.dataset;
-        const videoSearchTerms = videoData.searchTerms.toLowerCase();
-  
-        if (videoSearchTerms.includes(searchText)) {
-          videoContainer.style.display = "block";
-        } else {
-          videoContainer.style.display = "none";
+        if (videoContainer) {
+          const videoData = videoContainer.dataset;
+          const videoSearchTerms = videoData.searchTerms.toLowerCase();
+      
+          if (videoSearchTerms.includes(searchText)) {
+            videoContainer.style.display = "block";
+          } else {
+            videoContainer.style.display = "none";
+          }
         }
       });
   
