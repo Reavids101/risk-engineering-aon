@@ -188,32 +188,38 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    
     const searchBox2 = document.querySelector("#searchBox2");
 searchBox2.addEventListener("input", () => {
   const searchText = searchBox2.value.trim().toLowerCase();
 
-  // Search the videos
-  const videos = document.querySelectorAll(".video-container");
+  // Check if the search text matches any video search terms
+  const videos = document.querySelectorAll("#video-feed");
+  let videoMatched = false;
   videos.forEach((video) => {
     const videoSearchTerms = video.dataset.searchTerms.toLowerCase();
     if (videoSearchTerms.includes(searchText)) {
-      video.style.display = "block";
-    } else {
-      video.style.display = "none";
+      videoMatched = true;
+      return;
     }
   });
 
-  // Search the article previews
+  // Check if the search text matches any article search terms
   const articlePreviews = document.querySelectorAll(".article-preview");
+  let articleMatched = false;
   articlePreviews.forEach((articlePreview) => {
     const articleSearchTerms = articlePreview.dataset.searchTerms.toLowerCase();
     if (articleSearchTerms.includes(searchText)) {
-      articlePreview.style.display = "block";
-    } else {
-      articlePreview.style.display = "none";
+      articleMatched = true;
+      return;
     }
   });
+
+  // Redirect to the appropriate page based on the search text
+  if (videoMatched) {
+    window.location.href = "videos.html?search=" + encodeURIComponent(searchText);
+  } else if (articleMatched) {
+    window.location.href = "articles.html?search=" + encodeURIComponent(searchText);
+  }
 });
   });
 
