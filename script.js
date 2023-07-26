@@ -188,120 +188,33 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Load the contents of the videos.html page into a container element
-    fetch("./videos.html")
-      .then(response => response.text())
-      .then(data => {
-        const container = document.createElement("div");
-        container.innerHTML = data;
-        document.body.appendChild(container);
-  
-        const videoFeedElement = container.querySelector("#video-feed");
-  
-        // Add videos to the video feed element
-        const videos = [
-          {
-            id: "Grenfell Tower panels cladding fire tests",
-            title: "Grenfell Tower panels cladding fire tests",
-          },
-          {
-            id: "Perfume fire_static charges",
-            title: "Perfume fire_static charges",
-          },
-          // Add more video objects as needed
-        ];
-  
-        const promises = videos.map((video) => {
-          const videoElement = document.createElement("video");
-          videoElement.setAttribute("src", video.id + ".mp4");
-          videoElement.setAttribute("type", "video/mp4");
-          videoElement.setAttribute("controls", "");
-  
-          const titleElement = document.createElement("h2");
-          titleElement.textContent = video.title;
-  
-          const videoContainerElement = document.createElement("div");
-          videoContainerElement.appendChild(titleElement);
-          videoContainerElement.appendChild(videoElement);
-  
-          videoFeedElement.appendChild(videoContainerElement);
-  
-          const dataObj = {
-            type: "video",
-            searchTerms: video.id.toLowerCase() + " " + video.title.toLowerCase(),
-            element: videoContainerElement,
-          };
-          return dataObj;
-        });
-  
-        Promise.all(promises)
-          .then((data) => {
-            console.log("videos data:", data);
-          })
-          .catch((error) => console.error("Error loading videos:", error));
-      })
-      .catch(error => console.error("Error loading videos.html:", error));
-  
-    // Load the contents of the articles.html page into a container element
-    fetch("./articles.html")
-      .then(response => response.text())
-      .then(data => {
-        const container = document.createElement("div");
-        container.innerHTML = data;
-        document.body.appendChild(container);
-  
-        const articlePreviews = container.querySelectorAll(".article-preview");
-  
-        // Add article previews to the page
-        const data1 = [];
-        articlePreviews.forEach((articlePreview) => {
-          const searchTerms = articlePreview.getAttribute("data-search");
-  
-          const dataObj = {
-            type: "article",
-            searchTerms: searchTerms,
-            element: articlePreview,
-          };
-          data1.push(dataObj);
-        });
-        console.log("article previews data:", data1);
-      })
-      .catch(error => console.error("Error loading articles.html:", error));
-  
-    // Search the contents of the container element using the searchBox2 function
+    
     const searchBox2 = document.querySelector("#searchBox2");
-    searchBox2.addEventListener("input", () => {
-      const searchText = searchBox2.value.trim().toLowerCase();
-  
-      // Search the videos
-      const videos = document.querySelectorAll("#video-feed video");
-      videos.forEach((video) => {
-        const videoContainer = video.parentElement;
-        if (videoContainer) {
-          const videoData = videoContainer.dataset;
-          const videoSearchTerms = videoData.searchTerms.toLowerCase();
-      
-          if (videoSearchTerms.includes(searchText)) {
-            videoContainer.style.display = "block";
-          } else {
-            videoContainer.style.display = "none";
-          }
-        }
-      });
-  
-      // Search the article previews
-      const articlePreviews = document.querySelectorAll(".article-preview");
-      articlePreviews.forEach((articlePreview) => {
-        const articleData = articlePreview.dataset;
-        const articleSearchTerms = articleData.searchTerms.toLowerCase();
-  
-        if (articleSearchTerms.includes(searchText)) {
-          articlePreview.style.display = "block";
-        } else {
-          articlePreview.style.display = "none";
-        }
-      });
-    });
+searchBox2.addEventListener("input", () => {
+  const searchText = searchBox2.value.trim().toLowerCase();
+
+  // Search the videos
+  const videos = document.querySelectorAll(".video-container");
+  videos.forEach((video) => {
+    const videoSearchTerms = video.dataset.searchTerms.toLowerCase();
+    if (videoSearchTerms.includes(searchText)) {
+      video.style.display = "block";
+    } else {
+      video.style.display = "none";
+    }
+  });
+
+  // Search the article previews
+  const articlePreviews = document.querySelectorAll(".article-preview");
+  articlePreviews.forEach((articlePreview) => {
+    const articleSearchTerms = articlePreview.dataset.searchTerms.toLowerCase();
+    if (articleSearchTerms.includes(searchText)) {
+      articlePreview.style.display = "block";
+    } else {
+      articlePreview.style.display = "none";
+    }
+  });
+});
   });
 
 
