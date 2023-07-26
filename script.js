@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   });
 
-  
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".article-preview");
     const searchBox = document.querySelector("#searchBox");
@@ -187,41 +186,3 @@ document.addEventListener('DOMContentLoaded', function() {
     searchBarContainer.classList.toggle('show');
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchBox2 = document.querySelector("#searchBox2");
-searchBox2.addEventListener("input", () => {
-  const searchText = searchBox2.value.trim().toLowerCase();
-
-  // Check if the search text matches any video search terms
-  const videos = document.querySelectorAll("#video-feed");
-  let videoMatched = false;
-  videos.forEach((video) => {
-    const videoSearchTerms = video.dataset.searchTerms.toLowerCase();
-    if (videoSearchTerms.includes(searchText)) {
-      videoMatched = true;
-      return;
-    }
-  });
-
-  // Check if the search text matches any article search terms
-  const articlePreviews = document.querySelectorAll(".article-preview");
-  let articleMatched = false;
-  articlePreviews.forEach((articlePreview) => {
-    const articleSearchTerms = articlePreview.dataset.searchTerms.toLowerCase();
-    if (articleSearchTerms.includes(searchText)) {
-      articleMatched = true;
-      return;
-    }
-  });
-
-  // Redirect to the appropriate page based on the search text
-  if (videoMatched) {
-    window.location.href = "videos.html?search=" + encodeURIComponent(searchText);
-  } else if (articleMatched) {
-    window.location.href = "articles.html?search=" + encodeURIComponent(searchText);
-  }
-});
-  });
-
-
-  
