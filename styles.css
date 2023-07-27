@@ -416,7 +416,7 @@ p.animated-text {
   }
   
   .icon {
-    font-size: 45px;
+    font-size: 60px;
     cursor: pointer;
     color: white;
     padding: 14px 20px;
@@ -426,7 +426,7 @@ p.animated-text {
 
   .search-icon {
     display: inline-block;
-    font-size: 45px;
+    font-size: 60px;
     padding: 14px 20px;
   }
   
@@ -519,7 +519,7 @@ p.animated-text {
 
     .search-icon-1 {
         margin-left: 30px;
-        font-size: 45px;
+        font-size: 60px;
     }
   }
 
@@ -528,9 +528,12 @@ p.animated-text {
     border: none;
     background-color: #02386e;
     padding: 14px 28px;
-    font-size: 60px;
     cursor: pointer;
     text-align: center;
+  }
+
+  .index-options a {
+    font-size: 30px;
   }
 
   .index-options a {
