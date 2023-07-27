@@ -428,6 +428,7 @@ p.animated-text {
     display: inline-block;
     font-size: 60px;
     padding: 14px 20px;
+    text-decoration: none;
   }
   
   @media (max-width: 1000px) {
@@ -525,6 +526,7 @@ p.animated-text {
       .hidden {
         display: none !important;
       }
+
   }
 
   .index-options {
@@ -534,10 +536,8 @@ p.animated-text {
     padding: 14px 28px;
     cursor: pointer;
     text-align: center;
-  }
-
-  .index-options a {
-    font-size: 30px;
+    font-size: 35px;
+    color: white;
   }
 
   .index-options a {
