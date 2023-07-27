@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".article-preview");
   const searchBox = document.querySelector("#searchBox");
   const noResultsMessage = document.querySelector("#noResultsMessage");
+  noResultsMessage.classList.add("hidden");
 
   if (searchBox) {
     const links = Array.from(document.querySelectorAll("a")).filter(link => link.href.endsWith(".json"));
@@ -105,11 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
+      
+
       if (resultsFound) {
         noResultsMessage.classList.add("hidden");
       } else {
         noResultsMessage.classList.remove("hidden");
-      }
     };
 
     searchBox.addEventListener("input", search);
@@ -173,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
+}});
   
   function onPlayerReady(event) {
     event.target.playVideo();
