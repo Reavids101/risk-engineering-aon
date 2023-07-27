@@ -1,3 +1,7 @@
+function navigateToUrl(url) {
+  window.location.href = url;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   
   const element = document.querySelector('.gallery-item');
