@@ -192,6 +192,7 @@
     padding-right: 100px;
     color: white;
     z-index: 1;
+    -webkit-text-stroke-color: black;
 }
 
 .contact {
@@ -358,6 +359,7 @@ p.animated-text {
     padding-left: 100px;
     padding-right: 100px;
     color: white;
+    -webkit-text-stroke-color: #02386e;
     z-index: 1;
 }
 
