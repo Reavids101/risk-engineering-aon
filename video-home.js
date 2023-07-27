@@ -119,3 +119,61 @@ function searchBox1() {
 }
 
 searchBoxElement.addEventListener('input', searchBox1);
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    function searchBox4() {
+      console.log('searchBox4 called');
+  
+      var searchBoxElement = document.querySelector('#searchBox4');
+      console.log(searchBoxElement);
+      var videoFeedElement = document.querySelector('#video-feed');
+      var query = searchBoxElement.value.toLowerCase();
+  
+      var filteredVideos = videos.filter(function(video) {
+        var idMatch = video.id.toLowerCase().indexOf(query) >= 0;
+        var titleMatch = video.title.toLowerCase().indexOf(query) >= 0;
+        return idMatch || titleMatch;
+      });
+  
+      // Clear existing videos
+      videoFeedElement.innerHTML = '';
+  
+      // Add filtered videos to video feed
+      var promises = filteredVideos.map(function(video) {
+        var videoElement = document.createElement('video');
+        videoElement.setAttribute('src', video.id + '.mp4');
+        videoElement.setAttribute('type', 'video/mp4');
+        videoElement.setAttribute('controls', '');
+  
+        var titleElement = document.createElement('h2');
+        titleElement.textContent = video.title;
+  
+        var videoContainerElement = document.createElement('div');
+        videoContainerElement.appendChild(titleElement);
+        videoContainerElement.appendChild(videoElement);
+  
+        videoFeedElement.appendChild(videoContainerElement);
+      });
+  
+      Promise.all(promises).then(function() {
+        console.log('filtered videos:', filteredVideos);
+        onVideoPlayerReady(filteredVideos);
+  
+        // Hide search bar container after search is performed
+        toggleSearch();
+      });
+    }
+  
+    function toggleSearch() {
+      const searchContainer = document.querySelector(".search-bar-container");
+      searchContainer.classList.toggle("hidden");
+    }
+  
+    const searchForm = document.querySelector('.search-bar form');
+    searchForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      searchBox4();
+    });
+  });

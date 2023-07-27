@@ -183,6 +183,105 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function toggleSearch() {
     var searchBarContainer = document.querySelector('.search-bar-container');
+    if (searchBarContainer) {
+      searchBarContainer.classList.remove('hidden');
+    }
     searchBarContainer.classList.toggle('show');
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".article-preview");
+    const searchBox3 = document.querySelector("#searchBox3");
+  
+    if (searchBox3) {
+      const links = Array.from(document.querySelectorAll("a")).filter(link => link.href.endsWith(".json"));
+  
+      const search = (event) => {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const searchText = searchBox3.value.trim().toLowerCase();
+          const articles = container.querySelectorAll(".article");
+      
+          articles.forEach(article => {
+            article.classList.add("hidden");
+          });
+      
+          articles.forEach(article => {
+            const articleSearchTerms = article.getAttribute("data-search").toLowerCase();
+            if (searchText === "" || articleSearchTerms.includes(searchText)) {
+              article.classList.remove("hidden");
+            }
+          });
+      
+          const searchResults = document.querySelector(".search-results");
+          if (searchResults) {
+            searchResults.classList.remove("hidden");
+          }
+          const searchContainer = document.querySelector(".search-bar-container");
+          searchContainer.classList.add("hidden");
+        }
+      };
+  
+      searchBox3.addEventListener("keydown", search);
+  
+      Promise.all(
+        links
+          .map(link => fetch(link.href)
+            .then(response => response.json())
+            .then(data => {
+              data.fileName = link.href.match(/\/?([^/]+)$/)[1];
+              return data;
+            })
+            .catch(error => console.error(`Error fetching article from ${link.href}:`, error))
+          )
+      ).then(articles => {
+        articles = articles.flat();
+  
+        for (let i = 0; i < articles.length; i++) {
+          const article = articles[i];
+  
+          const articlePreview = document.createElement("div");
+          articlePreview.className = "article-preview";
+          articlePreview.innerHTML = `
+            <h2>${article.title}</h2>
+            <p>${article.snippet}</p>
+            <button class="view-btn" data-href="${article.pdfUrl}">Read more</button>
+          `;
+          articlePreview.setAttribute("data-search", JSON.stringify(searchTerms));
+  
+          console.log(articlePreview.getAttribute("data-search"));
+  
+          container.appendChild(articlePreview);
+        }
+      })
+      .catch(error => console.error('Error with Promise.all:', error));
+  
+      container.addEventListener("click", event => {
+        if (event.target.classList.contains("view-btn")) {
+          const pdfUrl = event.target.dataset.href;
+          const pdfjsLib = window["pdfjs-dist/build/pdf"];
+          pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
+          const loadingTask = pdfjsLib.getDocument(pdfUrl);
+  
+          loadingTask.promise.then((pdf) => {
+            pdf.getPage(1).then((page) => {
+              const canvas = document.createElement("canvas");
+              const viewport = page.getViewport({ scale: 1.0 });
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              const canvasContext = canvas.getContext("2d");
+              const renderTask = page.render({ canvasContext, viewport });
+              renderTask.promise.then(() => {
+                const pdfWindow = window.open("");
+                pdfWindow.document.write("<html><head><title>PDF Viewer</title></head><body>");
+                pdfWindow.document.write(`<embed width="100%" height="100%" name="plugin" src="${pdfUrl}" type="application/pdf">`);
+                pdfWindow.document.write("</body></html>");
+              });
+            });
+          });
+        }
+      });
+    }
+  });
+
 

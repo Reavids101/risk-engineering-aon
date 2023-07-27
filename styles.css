@@ -521,6 +521,10 @@ p.animated-text {
         margin-left: 30px;
         font-size: 60px;
     }
+      
+      .hidden {
+        display: none !important;
+      }
   }
 
   .index-options {
