@@ -96,16 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="view-btn" data-href="${data.pdfUrl}">Read more</button>
       `;
     
+      // Create a reference to the pop-up window
+      let pdfWindow = null;
+    
       // Add a click event listener to the "Read more" button
       const viewBtn = element.querySelector(".view-btn");
       viewBtn.addEventListener("click", () => {
+        // If the pop-up window is already open, focus on it instead of creating a new one
+        if (pdfWindow && !pdfWindow.closed) {
+          pdfWindow.focus();
+          return;
+        }
+    
         // Load the PDF file using PDF.js
         const pdfUrl = data.pdfUrl;
         const pdfjsLib = window["pdfjs-dist/build/pdf"];
         pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
         const loadingTask = pdfjsLib.getDocument(pdfUrl);
     
-        // Render the PDF file in a new window
+        // Render the PDF file in the pop-up window
         loadingTask.promise.then((pdf) => {
           pdf.getPage(1).then((page) => {
             const canvas = document.createElement("canvas");
@@ -115,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const canvasContext = canvas.getContext("2d");
             const renderTask = page.render({ canvasContext, viewport });
             renderTask.promise.then(() => {
-              const pdfWindow = window.open("", "_blank");
+              pdfWindow = window.open("", "_blank", "width=800,height=600");
               pdfWindow.document.write("<html><head><title>PDF Viewer</title></head><body>");
               pdfWindow.document.write(`<embed width="100%" height="100%" name="plugin" src="${pdfUrl}" type="application/pdf">`);
               pdfWindow.document.write("</body></html>");
