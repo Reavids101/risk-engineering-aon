@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="article-snippet">${data.snippet}</p>
         <button class="view-btn" data-href="${data.pdfUrl}">Read more</button>
       `;
-  
+    
       // Add a click event listener to the "Read more" button
       const viewBtn = element.querySelector(".view-btn");
       viewBtn.addEventListener("click", () => {
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const pdfjsLib = window["pdfjs-dist/build/pdf"];
         pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
         const loadingTask = pdfjsLib.getDocument(pdfUrl);
-  
-        // Render the PDF file in a new tab
+    
+        // Render the PDF file in a new window
         loadingTask.promise.then((pdf) => {
           pdf.getPage(1).then((page) => {
             const canvas = document.createElement("canvas");
@@ -115,15 +115,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const canvasContext = canvas.getContext("2d");
             const renderTask = page.render({ canvasContext, viewport });
             renderTask.promise.then(() => {
-              const pdfWindow = window.open("");
+              const pdfWindow = window.open("", "_blank");
               pdfWindow.document.write("<html><head><title>PDF Viewer</title></head><body>");
               pdfWindow.document.write(`<embed width="100%" height="100%" name="plugin" src="${pdfUrl}" type="application/pdf">`);
               pdfWindow.document.write("</body></html>");
+              pdfWindow.document.close(); // Important: Close the document to ensure proper rendering
             });
           });
         });
       });
-  
+    
       return element;
     }
   });
